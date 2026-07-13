@@ -61,6 +61,14 @@ body {
   overflow-x: hidden;
 }
 
+/* Desktop renders 10% larger overall — bakes in the 110% browser-zoom look Guy prefers.
+   CSS zoom scales text, images, spacing and layout together (like browser zoom) and
+   reflows rather than clipping. Gated to wide desktops so the large nav/logo keep room;
+   phones/tablets keep their own already-tuned sizing. */
+@media (min-width: 1200px) {
+  html { zoom: 1.1; }
+}
+
 img, svg, video { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 button { font: inherit; cursor: pointer; }
