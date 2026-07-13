@@ -264,26 +264,6 @@ p:last-child { margin-bottom: 0; }
   object-fit: cover; object-position: 90% 40%; /* right: keep the scoop in frame; 40% vertical: drop the flag out below the logo */
   z-index: 0; pointer-events: none;
 }
-/* Desktop: the hero photo is portrait, so `cover` scales it to full width and the
-   excavator's bucket sits hard against the right edge (there are no pixels beyond it to
-   reveal, so horizontal object-position can't help). Shrink the photo's BOX a touch,
-   anchored left, so the whole machine — bucket included — sits inside the frame with
-   breathing room on the right; the ::before gradient dissolves its top/right edges into
-   the dark hero background. (Box sizing — not transform/mask — keeps the <img> in the
-   main paint layer for reliable first paint.) */
-@media (min-width: 900px) {
-  .hero-photo {
-    width: 90%; height: 90%;
-    inset: 5% auto auto 0;
-    object-position: 50% 42%;
-  }
-  .hero::before {
-    content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
-    background:
-      linear-gradient(180deg, rgba(16,18,22,0.95) 0%, rgba(16,18,22,0.5) 8%, transparent 22%),
-      linear-gradient(270deg, rgba(16,18,22,0.55) 0%, transparent 13%);
-  }
-}
 #topo-canvas {
   position: absolute; inset: 0; width: 100%; height: 100%;
   z-index: 1; pointer-events: none;
