@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Viking Grading monogram: the V is a mountain peak and a dozer blade;
+       the ember tip is the plow point finding grade. -->
+  <rect width="64" height="64" rx="10" fill="#16181D"/>
+  <polygon points="8,12 23,12 32,32 41,12 56,12 38,55 26,55" fill="#EDE6DA"/>
+  <polygon points="27.5,50.5 36.5,50.5 32,40.5" fill="#E8871E"/>
+  <rect x="10" y="58" width="44" height="3" fill="#E8871E"/>
+</svg>

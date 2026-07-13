@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Placeholder — GRADING / LEVELING — REPLACE WITH REAL JOB PHOTO">
+  <rect width="800" height="600" fill="#16181D"/>
+  <rect width="800" height="600" fill="url(#gph-grading)" opacity=".55"/>
+  <defs><linearGradient id="gph-grading" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#23262E"/><stop offset="1" stop-color="#16181D"/>
+  </linearGradient></defs>
+  <g fill="none" stroke="#7A8B99" stroke-opacity=".14" stroke-width="1.5">
+    <path d="M-20 432.0 Q 176.0 348.0 384.0 420.0 T 820 372.0"/>
+    <path d="M-20 480.0 Q 200.0 408.00000000000006 416.0 468.0 T 820 432.0"/>
+    <path d="M-20 360.0 Q 240.0 276.0 480.0 348.0 T 820 300.0"/>
+    <path d="M-20 204.00000000000003 Q 280.0 132.0 520.0 192.0 T 820 156.0" stroke-opacity=".08"/>
+  </g>
+
+  <g>
+    <rect x="0" y="470" width="800" height="6" fill="#2B2F39"/>
+    <rect x="300" y="380" width="200" height="60" rx="8" fill="#2B2F39"/>
+    <rect x="340" y="320" width="110" height="70" rx="6" fill="#2B2F39"/>
+    <rect x="352" y="332" width="60" height="36" fill="#16181D"/>
+    <rect x="326" y="290" width="12" height="40" fill="#2B2F39"/>
+    <rect x="286" y="400" width="230" height="46" rx="23" fill="#16181D" stroke="#7A8B99" stroke-opacity=".4" stroke-width="3"/>
+    <circle cx="316" cy="423" r="13" fill="#2B2F39"/><circle cx="368" cy="423" r="13" fill="#2B2F39"/>
+    <circle cx="420" cy="423" r="13" fill="#2B2F39"/><circle cx="472" cy="423" r="13" fill="#2B2F39"/>
+    <path d="M508 380 L560 372 L560 452 L508 444 Z" fill="#2B2F39"/>
+    <path d="M560 372 L560 452" stroke="#E8871E" stroke-width="6"/>
+    <path d="M560 452 L640 470" stroke="#E8871E" stroke-width="4" stroke-dasharray="10 8"/>
+  </g>
+  <g font-family="Arial, sans-serif">
+    <rect x="28" y="514" width="8" height="52" fill="#E8871E"/>
+    <text x="48" y="538" fill="#EDE6DA" font-size="21" font-weight="bold" letter-spacing="3">JOB PHOTO SLOT</text>
+    <text x="48" y="560" fill="#7A8B99" font-size="14" letter-spacing="2">GRADING / LEVELING — REPLACE WITH REAL JOB PHOTO</text>
+  </g>
+  <g stroke="#EDE6DA" stroke-opacity=".25" stroke-width="2">
+    <path d="M16 40 V16 H40"/> <path d="M760 16 H784 V40"/>
+    <path d="M784 560 V584 H760"/> <path d="M40 584 H16 V560"/>
+  </g>
+</svg>

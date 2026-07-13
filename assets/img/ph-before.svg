@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Placeholder — ROUGH / WASHED-OUT — REPLACE WITH REAL BEFORE PHOTO">
+  <rect width="800" height="600" fill="#16181D"/>
+  <rect width="800" height="600" fill="url(#gph-before)" opacity=".55"/>
+  <defs><linearGradient id="gph-before" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#23262E"/><stop offset="1" stop-color="#16181D"/>
+  </linearGradient></defs>
+  <g fill="none" stroke="#7A8B99" stroke-opacity=".14" stroke-width="1.5">
+    <path d="M-20 432.0 Q 176.0 348.0 384.0 420.0 T 820 372.0"/>
+    <path d="M-20 480.0 Q 200.0 408.00000000000006 416.0 468.0 T 820 432.0"/>
+    <path d="M-20 360.0 Q 240.0 276.0 480.0 348.0 T 820 300.0"/>
+    <path d="M-20 204.00000000000003 Q 280.0 132.0 520.0 192.0 T 820 156.0" stroke-opacity=".08"/>
+  </g>
+
+  <g>
+    <path d="M0 470 L90 430 L150 452 L210 380 L260 420 L330 330 L390 396 L470 300 L540 380 L620 320 L700 400 L800 340 L800 600 L0 600 Z"
+          fill="#23262E" opacity=".7"/>
+    <path d="M0 470 L90 430 L150 452 L210 380 L260 420 L330 330 L390 396 L470 300 L540 380 L620 320 L700 400 L800 340"
+          fill="none" stroke="#7A8B99" stroke-width="3" stroke-opacity=".6"/>
+    <path d="M210 380 q 6 40 -12 72 M470 300 q 8 52 -10 96 M620 320 q 10 44 -6 84"
+          stroke="#16181D" stroke-width="7" fill="none" stroke-opacity=".9"/>
+  </g>
+  <g font-family="Arial, sans-serif">
+    <rect x="28" y="514" width="8" height="52" fill="#E8871E"/>
+    <text x="48" y="538" fill="#EDE6DA" font-size="21" font-weight="bold" letter-spacing="3">BEFORE PHOTO SLOT</text>
+    <text x="48" y="560" fill="#7A8B99" font-size="14" letter-spacing="2">ROUGH / WASHED-OUT — REPLACE WITH REAL BEFORE PHOTO</text>
+  </g>
+  <g stroke="#EDE6DA" stroke-opacity=".25" stroke-width="2">
+    <path d="M16 40 V16 H40"/> <path d="M760 16 H784 V40"/>
+    <path d="M784 560 V584 H760"/> <path d="M40 584 H16 V560"/>
+  </g>
+</svg>

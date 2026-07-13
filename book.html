@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free Grading Estimate | Viking Grading Solutions, Canton NC</title>
+  <meta name="description" content="Request a free grading or excavation estimate, book a site visit, or pay an invoice online. Viking Grading Solutions serves Canton, NC and the WNC mountains.">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
+  <link rel="apple-touch-icon" href="assets/favicon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Big+Shoulders+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- FAQ structured data — only questions whose answers are fully confirmed -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do you work on steep lots?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Steep is normal in western North Carolina, and it is most of what we grade — tight access, hard slopes, tricky lines. If a lot has a driveway to it, we can probably work it." }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does grading cost?",
+        "acceptedAnswer": { "@type": "Answer", "text": "It depends on the ground — slope, access, rock, and how much dirt actually has to move. We do not guess at numbers over the phone. The on-site walk-through is free, and you get a straight price before anything starts." }
+      },
+      {
+        "@type": "Question",
+        "name": "What areas do you serve?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Canton, Waynesville, Clyde, Candler, Asheville, Leicester, Maggie Valley, and Sylva — Haywood and Buncombe counties and the lots in between." }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-head">
+    <div class="wrap-wide head-in">
+      <a class="brand" href="index.html" aria-label="Viking Grading Solutions LLC — home">
+        <img class="brand-logo" src="assets/img/logo-viking-bone.png" alt="Viking Grading Solutions LLC" width="900" height="352">
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h12"/></svg>
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="index.html#services">Services</a>
+        <a href="gallery.html">Our Work</a>
+        <a href="about.html">Meet Jon</a>
+        <a class="btn btn-primary" href="book.html" aria-current="page">Get an Estimate</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="eyebrow">Estimates · Booking · Payments</p>
+        <h1>Let's get your project moving.</h1>
+        <p class="lede">Request an estimate, book a site visit, or take care of an invoice —
+          pick what you need below. Jon reviews every request himself.</p>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap panels">
+
+        <!-- ============ PANEL 1: ESTIMATE FORM ============
+             Static-site form. Wire-up options (see docs/stripe-square-booking-setup.md):
+             Option A (recommended): FormSubmit — replace action with
+               https://formsubmit.co/{VERIFIED-EMAIL-OR-HASH} after activation.
+             Option B: Netlify Forms / Formspree if hosting changes.
+             Until wired, js/main.js intercepts submit and shows the notice below. -->
+        <div class="panel">
+          <h2>Request an estimate</h2>
+          <p>Tell us about your property and what you need done. The more detail,
+            the better the estimate.</p>
+          <form id="estimate-form" action="{{FORM_ENDPOINT}}" method="POST" class="form-grid">
+            <div>
+              <label for="f-name">Name</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Your full name" required>
+            </div>
+            <div>
+              <label for="f-phone">Phone</label>
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="Best number to reach you" required>
+            </div>
+            <div>
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+            </div>
+            <div>
+              <label for="f-town">Property town</label>
+              <select id="f-town" name="town">
+                <option>Canton</option><option>Waynesville</option><option>Clyde</option>
+                <option>Candler</option><option>Asheville</option><option>Leicester</option>
+                <option>Maggie Valley</option><option>Sylva</option><option>Other / nearby</option>
+              </select>
+            </div>
+            <div class="full">
+              <label for="f-service">Service needed</label>
+              <select id="f-service" name="service">
+                <option>Land grading &amp; leveling</option>
+                <option>Excavation &amp; site prep</option>
+                <option>Clearing &amp; forestry mulching</option>
+                <option>Gravel driveway / private road</option>
+                <option>Stormwater &amp; drainage</option>
+                <option>Building, barn or shop pad</option>
+                <option>Retaining wall</option>
+                <option>Concrete work</option>
+                <option>Demolition / disaster clean-up</option>
+                <option>Not sure — need Jon's eyes on it</option>
+              </select>
+            </div>
+            <div class="full">
+              <label for="f-details">Project details</label>
+              <textarea id="f-details" name="details" placeholder="What's going on with the property — the problem, the goal, and the timeline you're working with. If water is involved, tell us what it does when it rains."></textarea>
+            </div>
+            <!-- honeypot: bots fill this, humans never see it -->
+            <div class="full" style="position:absolute;left:-9999px" aria-hidden="true">
+              <label for="f-company">Company</label>
+              <input id="f-company" name="_honey" type="text" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="full">
+              <button class="btn btn-primary btn-lg" type="submit">Send my request</button>
+              <p class="form-note">Got photos of the site? Have them ready — we'll reply and
+                you can text or email them straight to Jon. No spam, no sales calls.</p>
+              <p class="form-note" id="form-pending" hidden style="color:var(--ember)">
+                The online form goes live with the site launch — we're setting up a
+                professional email for direct contact. Check back shortly.</p>
+            </div>
+          </form>
+        </div>
+
+        <!-- ============ PANELS 2 + 3: BOOKING & PAYMENT ============ -->
+        <div class="panel-stack">
+          <div class="panel">
+            <h2>Book a site visit</h2>
+            <p>Some jobs need eyes on the ground before we talk numbers. Book a time for
+              Jon to walk your property, look at the access, the slope, and the soil,
+              and talk through what it'll take. No obligation, no pressure.</p>
+            <!-- TODO: replace href with the live scheduling link when chosen —
+                 recommended: Cal.com (free) or Square Appointments.
+                 Setup walkthrough: docs/stripe-square-booking-setup.md -->
+            <p><a class="btn btn-ghost" href="#estimate-form">Request a site visit</a></p>
+            <p class="form-note">Ask for a visit in the estimate form — online self-scheduling is coming with launch.</p>
+          </div>
+
+          <div class="panel">
+            <h2>Pay an invoice or deposit</h2>
+            <p>Already working with us? Take care of an invoice or job deposit right here.
+              Payments are processed securely through Stripe — we never see or store your
+              card information.</p>
+            <!-- TODO: replace with the live Stripe Payment Link once the Stripe account
+                 is set up (Jon creates the account; link goes here).
+                 Full walkthrough: docs/stripe-square-booking-setup.md -->
+            <p class="form-note" style="color:var(--ember)">Secure online payments go live with launch.
+              Working with us now? Your invoice includes a secure Stripe pay link.</p>
+            <p class="form-note">Secured by Stripe. Card details stay encrypted and private.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ HOW IT WORKS ============ -->
+      <div class="wrap">
+        <div class="steps">
+          <div class="step rv"><h3>Call or send the form</h3><p>Tell us about the property and the job.</p></div>
+          <div class="step rv"><h3>Site walk &amp; straight quote</h3><p>Jon walks the ground and gives you a real number.</p></div>
+          <div class="step rv"><h3>We do the work</h3><p>Machines on-site, job done right, site kept clean.</p></div>
+          <div class="step rv"><h3>Final walk-through</h3><p>We walk it together before we call it finished.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="hazard" aria-hidden="true"></div>
+
+    <!-- ============ FAQ ============ -->
+    <section class="sec sec-char">
+      <div class="wrap">
+        <p class="eyebrow rv">Straight answers</p>
+        <h2 class="rv">Questions we get a lot.</h2>
+        <div class="faq">
+          <details class="rv">
+            <summary>Do you work on steep lots?</summary>
+            <p>Steep is normal out here. Western North Carolina doesn't hand out flat ground
+              for free, and that's most of what we grade — tight access, hard slopes, tricky
+              lines. If a lot has a driveway to it, we can probably work it.</p>
+          </details>
+          <details class="rv">
+            <summary>How much does grading cost?</summary>
+            <p>It depends on the ground — slope, access, rock, how much dirt actually has to
+              move. We won't guess at a number over the phone, because a guess isn't worth
+              much to you. The on-site walk-through is free: Jon looks at your property and
+              gives you a straight price before anything starts.</p>
+          </details>
+          <details class="rv">
+            <summary>How soon can you start?</summary>
+            <p>Depends on the job and what's already on the schedule. Ask when you request
+              your estimate — Jon will give you a real date, not a runaround.</p>
+          </details>
+          <details class="rv">
+            <summary>What areas do you serve?</summary>
+            <p>Canton, Waynesville, Clyde, Candler, Asheville, Leicester, Maggie Valley,
+              Sylva — Haywood and Buncombe counties and the lots in between. Not sure if
+              you're in range? Ask. Chances are we've already worked near you.</p>
+          </details>
+          <!-- TODO: add "Are you insured?" and "Do you handle permits?" once Jon
+               confirms the exact answers — see docs/facts-to-confirm.md -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="sec cta-band">
+      <div class="wrap">
+        <h2 class="rv">Rather just talk it through?</h2>
+        <p class="lede rv">Send the estimate form and you're talking to Jon — not a call center.
+          A direct email line is on the way.</p>
+        <div class="hero-ctas rv">
+          <a class="btn btn-primary btn-lg" href="#estimate-form">Start with the form</a>
+          <!-- Pro email + phone coming — activate:
+          <a class="btn btn-primary btn-lg" href="mailto:{{EMAIL}}">Email Jon</a>
+          <a class="btn btn-ghost btn-lg" href="tel:+1XXXXXXXXXX">Call Jon</a> -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap foot-grid">
+      <div>
+        <a class="brand" href="index.html" aria-label="Viking Grading Solutions LLC — home">
+          <img class="brand-logo foot-logo" src="assets/img/logo-viking-bone.png" alt="Viking Grading Solutions LLC" width="900" height="352">
+        </a>
+        <p class="foot-tag" style="margin-top:1.2rem">Veteran-owned grading &amp; excavation
+          for the western North Carolina mountains. We move mountains — carefully.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="index.html#services">Grading &amp; excavation</a></li>
+          <li><a href="index.html#services">Clearing &amp; forestry mulching</a></li>
+          <li><a href="index.html#services">Gravel driveways</a></li>
+          <li><a href="index.html#services">Stormwater &amp; drainage</a></li>
+          <li><a href="index.html#services">Retaining walls &amp; concrete</a></li>
+          <li><a href="index.html#services">Demolition &amp; clean-up</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">Meet Jon</a></li>
+          <li><a href="gallery.html">Our work</a></li>
+          <li><a href="book.html">Estimates &amp; booking</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61577352263482" rel="noopener" target="_blank">Facebook</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>Canton, North Carolina</li>
+          <li><a href="#estimate-form">Request an estimate</a></li>
+          <!-- Pro email coming — activate: <li><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></li> -->
+        </ul>
+      </div>
+    </div>
+    <div class="wrap foot-base">
+      <span>© <span id="yr">2026</span> Viking Grading Solutions LLC · Canton, NC</span>
+      <span>Veteran-owned &amp; operated · Site by Stewart Digital</span>
+    </div>
+    <div class="foot-mark" aria-hidden="true">VIKING</div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

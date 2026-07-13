@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 800" role="img" aria-label="Placeholder — JON + FAMILY — REPLACE WITH REAL PHOTO">
+  <rect width="640" height="800" fill="#16181D"/>
+  <rect width="640" height="800" fill="url(#gph-portrait)" opacity=".55"/>
+  <defs><linearGradient id="gph-portrait" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#23262E"/><stop offset="1" stop-color="#16181D"/>
+  </linearGradient></defs>
+  <g fill="none" stroke="#7A8B99" stroke-opacity=".14" stroke-width="1.5">
+    <path d="M-20 576.0 Q 140.8 463.99999999999994 307.2 560.0 T 660 496.0"/>
+    <path d="M-20 640.0 Q 160.0 544.0 332.8 624.0 T 660 576.0"/>
+    <path d="M-20 480.0 Q 192.0 368.0 384.0 463.99999999999994 T 660 400.0"/>
+    <path d="M-20 272.0 Q 224.0 176.0 416.0 256.0 T 660 208.0" stroke-opacity=".08"/>
+  </g>
+
+  <g fill="#2B2F39">
+    <circle cx="270" cy="380" r="62"/>
+    <path d="M180 560 q 90 -100 180 0 v 60 h -180 Z"/>
+    <circle cx="400" cy="396" r="52"/>
+    <path d="M326 560 q 74 -84 148 0 v 60 h -148 Z"/>
+    <circle cx="338" cy="520" r="30" fill="#16181D" stroke="#E8871E" stroke-width="4"/>
+    <path d="M326 520 l 9 9 l 17 -17" stroke="#E8871E" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </g>
+  <g font-family="Arial, sans-serif">
+    <rect x="28" y="714" width="8" height="52" fill="#E8871E"/>
+    <text x="48" y="738" fill="#EDE6DA" font-size="21" font-weight="bold" letter-spacing="3">FAMILY PHOTO SLOT</text>
+    <text x="48" y="760" fill="#7A8B99" font-size="14" letter-spacing="2">JON + FAMILY — REPLACE WITH REAL PHOTO</text>
+  </g>
+  <g stroke="#EDE6DA" stroke-opacity=".25" stroke-width="2">
+    <path d="M16 40 V16 H40"/> <path d="M600 16 H624 V40"/>
+    <path d="M624 760 V784 H600"/> <path d="M40 784 H16 V760"/>
+  </g>
+</svg>
