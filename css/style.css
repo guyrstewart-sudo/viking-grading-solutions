@@ -264,27 +264,33 @@ p:last-child { margin-bottom: 0; }
   object-fit: cover; object-position: 90% 40%; /* right: keep the scoop in frame; 40% vertical: drop the flag out below the logo */
   z-index: 0; pointer-events: none;
 }
-/* Hero service emblems — desktop preview (purple crucifix · U.S. Army · NC flag),
-   grouped on a subtle dark card in the right of the hero */
-.hero-badges, .hero-badge-scrim { display: none; }
+/* Hero service emblems (crucifix · U.S. Army · NC flag) — MOCKUP ONLY.
+   Activated by adding class "emblem-mockup" to <body>; the live hero is untouched.
+   Excavator is scaled down/left so a dark vertical bar opens on the right, and the
+   three emblems sit raised in the top-right, clear of the arm and bucket. */
+.hero-badges { display: none; }
 @media (min-width: 900px) {
-  .hero-badges {
-    position: absolute; top: 50%; right: clamp(1.6rem, 3.2vw, 3.8rem);
-    transform: translateY(-50%);
-    z-index: 4; display: flex; flex-direction: column; align-items: center;
-    gap: clamp(1.3rem, 2.2vh, 2.2rem);
-    padding: clamp(1.4rem, 2.1vw, 2.2rem) clamp(1.2rem, 1.7vw, 1.8rem);
-    border-radius: 20px;
-    background: linear-gradient(180deg, rgba(14,15,19,0.5), rgba(9,10,13,0.72));
-    border: 1px solid rgba(232,200,120,0.15);
-    box-shadow: 0 22px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
-    pointer-events: none;
+  body.emblem-mockup .hero-photo {
+    width: 82%; height: 90%; inset: 5% auto auto 0; object-position: 50% 42%;
   }
-  .hero-badges .hb { width: clamp(104px, 8.4vw, 138px); height: auto; display: block;
-    filter: drop-shadow(0 5px 12px rgba(0,0,0,0.5)); }
-  .hero-badges .hb-cross { width: clamp(80px, 6.6vw, 104px);
-    filter: drop-shadow(0 0 20px rgba(150,80,220,0.75)) drop-shadow(0 4px 10px rgba(0,0,0,0.45)); }
-  .hero-badges .hb-flag { border-radius: 3px; outline: 1px solid rgba(255,255,255,0.16); outline-offset: -1px; }
+  body.emblem-mockup .hero::before {
+    content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background:
+      linear-gradient(270deg, rgba(9,10,13,0.96) 0%, rgba(9,10,13,0.7) 13%, transparent 20%),
+      linear-gradient(180deg, rgba(16,18,22,0.9) 0%, transparent 12%);
+  }
+  /* emblems centered — vertically and horizontally — inside the black bar on the right */
+  /* emblems: 1.5x smaller, top-aligned, starting at the bottom of the header, centered in the bar */
+  body.emblem-mockup .hero-badges {
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+    position: absolute; top: clamp(8.5rem, 12.5vh, 10.5rem); bottom: auto; right: 0; width: 18%;
+    z-index: 4; gap: clamp(1rem, 1.7vh, 1.9rem); pointer-events: none;
+  }
+  body.emblem-mockup .hero-badges .hb { width: clamp(120px, 8.7vw, 160px); height: auto; display: block;
+    filter: drop-shadow(0 5px 13px rgba(0,0,0,0.7)); }
+  body.emblem-mockup .hero-badges .hb-cross { width: clamp(94px, 6.7vw, 122px);
+    filter: drop-shadow(0 0 20px rgba(150,80,220,0.8)) drop-shadow(0 4px 10px rgba(0,0,0,0.5)); }
+  body.emblem-mockup .hero-badges .hb-flag { border-radius: 4px; outline: 1px solid rgba(255,255,255,0.18); outline-offset: -1px; }
 }
 #topo-canvas {
   position: absolute; inset: 0; width: 100%; height: 100%;

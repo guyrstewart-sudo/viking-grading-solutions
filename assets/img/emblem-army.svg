@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 372">
-  <rect x="16" y="8" width="268" height="252" rx="36" fill="#0c0c0c" stroke="#F4C300" stroke-width="16"/>
-  <path d="M150,43 L175,104 L240,109 L190,151 L206,215 L150,180 L94,215 L110,151 L60,109 L125,104 Z"
+  <rect x="16" y="8" width="268" height="248" rx="36" fill="#0c0c0c" stroke="#F4C300" stroke-width="16"/>
+  <path d="M150,40 L175,101 L240,106 L190,148 L206,212 L150,177 L94,212 L110,148 L60,106 L125,101 Z"
         fill="#ffffff" stroke="#F4C300" stroke-width="7" stroke-linejoin="round"/>
-  <rect x="58" y="292" width="184" height="68" rx="18" fill="#0c0c0c" stroke="#F4C300" stroke-width="10"/>
-  <text x="150" y="339" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="42" fill="#ffffff" letter-spacing="0.5">U.S.ARMY</text>
+  <rect x="24" y="292" width="252" height="66" rx="20" fill="#0c0c0c" stroke="#F4C300" stroke-width="10"/>
+  <text x="150" y="337" text-anchor="middle" textLength="222" lengthAdjust="spacingAndGlyphs"
+        font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="40" fill="#ffffff">U.S.ARMY</text>
 </svg>
