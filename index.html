@@ -493,5 +493,8 @@
 
   <script src="js/topo-bg.js" defer></script>
   <script src="js/main.js" defer></script>
+  <!-- Preview switch: add ?emblems to the URL to view the service-emblems mockup
+       (crucifix · U.S. Army · NC flag). Off by default so the live homepage is clean. -->
+  <script>if(/emblems/.test(location.search)){document.body.classList.add('emblem-mockup');}</script>
 </body>
 </html>
