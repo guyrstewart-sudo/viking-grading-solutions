@@ -283,8 +283,8 @@ p:last-child { margin-bottom: 0; }
   /* emblems: 1.5x smaller, top-aligned, starting at the bottom of the header, centered in the bar */
   body.emblem-mockup .hero-badges {
     display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-    position: absolute; top: clamp(8.5rem, 12.5vh, 10.5rem); bottom: auto; right: 0; width: 18%;
-    z-index: 4; gap: clamp(1rem, 1.7vh, 1.9rem); pointer-events: none;
+    position: absolute; top: clamp(0.4rem, 1vh, 0.9rem); bottom: auto; right: 0; width: 18%;
+    z-index: 60; gap: clamp(1rem, 1.7vh, 1.9rem); pointer-events: none;
   }
   body.emblem-mockup .hero-badges .hb { width: clamp(120px, 8.7vw, 160px); height: auto; display: block;
     filter: drop-shadow(0 5px 13px rgba(0,0,0,0.7)); }
