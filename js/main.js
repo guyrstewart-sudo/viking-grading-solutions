@@ -197,6 +197,59 @@
     });
   }
 
+  /* ---------- gallery lightbox ----------
+     Cards are caption-less <button class="frame lb-open"> elements. Clicking
+     one enlarges the photo; clicking ANYWHERE (image included), the X, or
+     Escape closes it. Focus returns to the card that opened it. */
+  var lbButtons = document.querySelectorAll(".lb-open");
+  if (lbButtons.length) {
+    var lb = document.createElement("div");
+    lb.className = "lightbox";
+    lb.hidden = true;
+    lb.setAttribute("role", "dialog");
+    lb.setAttribute("aria-modal", "true");
+    lb.setAttribute("aria-label", "Enlarged photo");
+    lb.innerHTML =
+      '<figure class="lb-frame">' +
+      '<img alt="">' +
+      '<button class="lb-close" type="button" aria-label="Close enlarged photo">×</button>' +
+      '</figure>';
+    document.body.appendChild(lb);
+    var lbImg = lb.querySelector("img");
+    var lbClose = lb.querySelector(".lb-close");
+    var lbOpener = null;
+
+    function openLb(btn) {
+      var img = btn.querySelector("img");
+      if (!img) return;
+      var src = img.getAttribute("src") || "";
+      lbImg.src = src.replace("-640.jpg", "-1200.jpg");
+      lbImg.srcset = img.getAttribute("srcset") || "";
+      lbImg.sizes = "92vw";
+      lbImg.alt = img.alt || "";
+      lbOpener = btn;
+      lb.hidden = false;
+      document.body.style.overflow = "hidden";
+      lbClose.focus();
+    }
+    function closeLb() {
+      lb.hidden = true;
+      lbImg.src = ""; lbImg.srcset = "";
+      document.body.style.overflow = "";
+      if (lbOpener) { lbOpener.focus(); lbOpener = null; }
+    }
+    lbButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () { openLb(btn); });
+    });
+    lb.addEventListener("click", closeLb); // anywhere: backdrop, image, or X
+    document.addEventListener("keydown", function (e) {
+      if (!lb.hidden && (e.key === "Escape" || e.key === "Tab")) {
+        if (e.key === "Tab") { e.preventDefault(); return; } // single-control dialog
+        closeLb();
+      }
+    });
+  }
+
   /* ---------- current year ---------- */
   var yr = document.getElementById("yr");
   if (yr) yr.textContent = new Date().getFullYear();

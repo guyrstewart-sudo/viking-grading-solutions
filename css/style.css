@@ -526,8 +526,43 @@ p:last-child { margin-bottom: 0; }
   height: auto;
 }
 .cascade .work-card .frame { position: relative; width: 100%; }
+/* caption-less gallery: each frame is a real <button> that opens the lightbox */
+.cascade .work-card button.frame {
+  display: block; border: 0; padding: 0; background: none;
+  cursor: zoom-in; line-height: 0;
+}
 .cascade .work-card img, .cascade .work-card .ph {
   position: relative; inset: auto; height: auto;
+}
+
+/* ---------- lightbox (gallery) ---------- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 90;
+  display: grid; place-items: center; padding: 2.5rem 1rem;
+  background: rgba(16, 18, 22, 0.94);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  cursor: zoom-out;
+}
+.lightbox[hidden] { display: none; }
+.lb-frame { position: relative; margin: 0; line-height: 0; }
+.lb-frame img {
+  max-width: min(92vw, 1200px); max-height: 86vh; width: auto; height: auto;
+  border: 1px solid var(--line);
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
+}
+.lb-close {
+  position: absolute; top: 10px; right: 10px; z-index: 2;
+  width: 44px; height: 44px; border: 0; cursor: pointer;
+  background: var(--ember); color: var(--iron-2);
+  font-family: var(--f-disp); font-weight: 800; font-size: 1.5rem; line-height: 1;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+.lb-close:hover { background: var(--ember-2); }
+@media (prefers-reduced-motion: no-preference) {
+  .lightbox { animation: lbIn 0.22s var(--ease); }
+  @keyframes lbIn { from { opacity: 0; } to { opacity: 1; } }
+  .lb-frame { animation: lbZoom 0.22s var(--ease); }
+  @keyframes lbZoom { from { transform: scale(0.97); } to { transform: none; } }
 }
 
 /* filter buttons */
