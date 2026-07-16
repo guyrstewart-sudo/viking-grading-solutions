@@ -59,9 +59,11 @@
     "geo": { "@type": "GeoCoordinates", "latitude": 35.5951, "longitude": -82.5515 },
     "areaServed": [
       { "@type": "City", "name": "Asheville" }, { "@type": "City", "name": "Canton" },
-      { "@type": "City", "name": "Waynesville" }, { "@type": "City", "name": "Clyde" },
-      { "@type": "City", "name": "Candler" }, { "@type": "City", "name": "Leicester" },
-      { "@type": "City", "name": "Maggie Valley" }, { "@type": "City", "name": "Sylva" }
+      { "@type": "City", "name": "Weaverville" }, { "@type": "City", "name": "Black Mountain" },
+      { "@type": "City", "name": "Hendersonville" }, { "@type": "City", "name": "Waynesville" },
+      { "@type": "City", "name": "Clyde" }, { "@type": "City", "name": "Candler" },
+      { "@type": "City", "name": "Leicester" }, { "@type": "City", "name": "Maggie Valley" },
+      { "@type": "City", "name": "Sylva" }, { "@type": "AdministrativeArea", "name": "Madison County" }
     ],
     "sameAs": [ "https://www.facebook.com/profile.php?id=61577352263482" ]
   }
@@ -305,7 +307,7 @@
     <section class="sec sec-paper" id="area">
       <div class="wrap">
         <p class="eyebrow rv">Where we work</p>
-        <h2 class="rv">Haywood &amp; Buncombe counties.</h2>
+        <h2 class="rv">Asheville &amp; the mountains around it.</h2>
         <p class="lede rv">Based in Asheville, working the mountain towns around it. Steep lots,
           tight access, and long gravel drives are our home field, not a surcharge.</p>
 
@@ -314,7 +316,7 @@
              true relative geography; labeled approximate on the map itself. -->
         <div class="area-map rv" aria-hidden="true">
           <svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" fill="none">
-            <!-- contour rings — same language as the hero canvas -->
+            <!-- contour rings, same language as the hero canvas -->
             <g stroke="rgba(22,24,29,0.13)" stroke-width="1">
               <path d="M80,240 C60,170 140,90 260,80 C380,70 520,55 630,95 C720,130 730,230 660,290 C580,355 420,370 290,350 C170,332 100,300 80,240 Z"/>
               <path d="M140,235 C130,180 190,120 290,112 C395,104 520,95 605,130 C675,160 680,235 620,280 C545,332 420,340 310,322 C210,306 150,280 140,235 Z"/>
@@ -326,31 +328,35 @@
               <path d="M640,50 C670,60 700,58 730,42 M660,80 C690,92 715,90 742,74"/>
             </g>
             <!-- approximate Haywood / Buncombe line -->
-            <path d="M497,34 C505,110 480,200 500,280 C510,325 498,350 492,372" stroke="rgba(22,24,29,0.3)" stroke-width="1.2" stroke-dasharray="6 7"/>
-            <text x="480" y="26" text-anchor="end" font-family="Archivo, sans-serif" font-size="11" font-weight="700" letter-spacing="2" fill="#7C868F">HAYWOOD CO.</text>
-            <text x="516" y="26" font-family="Archivo, sans-serif" font-size="11" font-weight="700" letter-spacing="2" fill="#7C868F">BUNCOMBE CO.</text>
+            <path d="M395,34 C403,110 378,200 398,280 C408,325 396,350 390,372" stroke="rgba(22,24,29,0.3)" stroke-width="1.2" stroke-dasharray="6 7"/>
+            <text x="378" y="26" text-anchor="end" font-family="Archivo, sans-serif" font-size="11" font-weight="700" letter-spacing="2" fill="#7C868F">HAYWOOD CO.</text>
+            <text x="412" y="26" font-family="Archivo, sans-serif" font-size="11" font-weight="700" letter-spacing="2" fill="#7C868F">BUNCOMBE CO.</text>
 
             <!-- home-field ring around HQ (Asheville) -->
-            <path d="M618,115 C618,85 645,69 680,69 C715,69 742,85 742,115 C742,145 715,161 680,161 C645,161 618,145 618,115 Z" stroke="rgba(232,135,30,0.5)" stroke-width="1.4" stroke-dasharray="3 6"/>
+            <path d="M499,176 C499,146 526,130 561,130 C596,130 623,146 623,176 C623,206 596,222 561,222 C526,222 499,206 499,176 Z" stroke="rgba(232,135,30,0.5)" stroke-width="1.4" stroke-dasharray="3 6"/>
 
-            <!-- towns -->
+            <!-- towns (positions approximate, true relative geography) -->
             <g font-family="Archivo, sans-serif" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#4C5660">
-              <circle cx="60" cy="340" r="4" fill="#4C5660"/><text x="74" y="345">SYLVA</text>
-              <circle cx="184" cy="190" r="4" fill="#4C5660"/><text x="184" y="172" text-anchor="middle">MAGGIE VALLEY</text>
-              <circle cx="280" cy="225" r="4" fill="#4C5660"/><text x="280" y="248" text-anchor="middle">WAYNESVILLE</text>
-              <circle cx="356" cy="180" r="4" fill="#4C5660"/><text x="348" y="204" text-anchor="middle">CLYDE</text>
-              <circle cx="519" cy="60" r="4" fill="#4C5660"/><text x="519" y="84" text-anchor="middle">LEICESTER</text>
-              <circle cx="566" cy="170" r="4" fill="#4C5660"/><text x="566" y="193" text-anchor="middle">CANDLER</text>
-              <circle cx="423" cy="180" r="4" fill="#4C5660"/><text x="423" y="204" text-anchor="middle">CANTON</text>
+              <circle cx="55" cy="321" r="4" fill="#4C5660"/><text x="69" y="326">SYLVA</text>
+              <circle cx="153" cy="224" r="4" fill="#4C5660"/><text x="153" y="206" text-anchor="middle">MAGGIE VALLEY</text>
+              <circle cx="229" cy="247" r="4" fill="#4C5660"/><text x="229" y="270" text-anchor="middle">WAYNESVILLE</text>
+              <circle cx="289" cy="218" r="4" fill="#4C5660"/><text x="289" y="200" text-anchor="middle">CLYDE</text>
+              <circle cx="342" cy="218" r="4" fill="#4C5660"/><text x="342" y="241" text-anchor="middle">CANTON</text>
+              <circle cx="456" cy="211" r="4" fill="#4C5660"/><text x="444" y="216" text-anchor="end">CANDLER</text>
+              <circle cx="418" cy="140" r="4" fill="#4C5660"/><text x="418" y="122" text-anchor="middle">LEICESTER</text>
+              <circle cx="460" cy="45" r="4" fill="#4C5660"/><text x="460" y="68" text-anchor="middle">MADISON</text>
+              <circle cx="554" cy="110" r="4" fill="#4C5660"/><text x="554" y="92" text-anchor="middle">WEAVERVILLE</text>
+              <circle cx="735" cy="161" r="4" fill="#4C5660"/><text x="727" y="147" text-anchor="end">BLACK MOUNTAIN</text>
+              <circle cx="629" cy="355" r="4" fill="#4C5660"/><text x="629" y="338" text-anchor="middle">HENDERSONVILLE</text>
             </g>
 
             <!-- Asheville HQ: survey stake -->
             <g>
-              <line x1="680" y1="115" x2="680" y2="81" stroke="#C96F12" stroke-width="2.4"/>
-              <path d="M680,81 L705,88 L680,95 Z" fill="#E8871E"/>
-              <circle cx="680" cy="115" r="5.5" fill="#C96F12"/>
-              <circle cx="680" cy="115" r="9.5" stroke="rgba(201,111,18,0.45)" stroke-width="1.5"/>
-              <text x="680" y="52" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13.5" font-weight="800" letter-spacing="1.6" fill="#9A5410">ASHEVILLE HQ</text>
+              <line x1="561" y1="176" x2="561" y2="142" stroke="#C96F12" stroke-width="2.4"/>
+              <path d="M561,142 L586,149 L561,156 Z" fill="#E8871E"/>
+              <circle cx="561" cy="176" r="5.5" fill="#C96F12"/>
+              <circle cx="561" cy="176" r="9.5" stroke="rgba(201,111,18,0.45)" stroke-width="1.5"/>
+              <text x="561" y="244" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13.5" font-weight="800" letter-spacing="1.6" fill="#9A5410">ASHEVILLE HQ</text>
             </g>
 
             <text x="748" y="390" text-anchor="end" font-family="Archivo, sans-serif" font-size="10" letter-spacing="1.5" fill="#8C949B">SERVICE AREA (APPROXIMATE)</text>
@@ -358,9 +364,10 @@
         </div>
 
         <div class="area-tags rv">
-          <span><b>HQ</b> Asheville</span><span>Canton</span><span>Waynesville</span>
-          <span>Clyde</span><span>Candler</span><span>Leicester</span>
-          <span>Maggie Valley</span><span>Sylva</span>
+          <span><b>HQ</b> Asheville</span><span>Canton</span><span>Weaverville</span>
+          <span>Black Mountain</span><span>Waynesville</span><span>Clyde</span>
+          <span>Candler</span><span>Leicester</span><span>Maggie Valley</span>
+          <span>Hendersonville</span><span>Sylva</span><span>Madison County</span>
         </div>
       </div>
     </section>
