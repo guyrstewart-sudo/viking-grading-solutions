@@ -9,11 +9,26 @@
   /* ---------- sticky header state ---------- */
   var head = document.querySelector(".site-head");
   var docEl = document.documentElement;
+
+  /* Side-rail tiles ship with data-bg instead of background-image so their
+     ~4MB of decorative photos never downloads unless the rails can actually
+     show (ultrawide viewport) AND the visitor scrolls past the hero. */
+  var railsLoaded = false;
+  function loadRails() {
+    if (railsLoaded || !window.matchMedia("(min-width: 2160px)").matches) return;
+    railsLoaded = true;
+    document.querySelectorAll(".side-rail [data-bg]").forEach(function (el) {
+      el.style.backgroundImage = "url('" + el.getAttribute("data-bg") + "')";
+    });
+  }
+
   function onScroll() {
     if (head) head.classList.toggle("is-scrolled", window.scrollY > 24);
     // Side-rail cascade: hidden over the hero, revealed once you scroll into
     // the next section (~60% of a viewport down). No-op on pages without rails.
-    docEl.classList.toggle("rails-visible", window.scrollY > window.innerHeight * 0.6);
+    var railsOn = window.scrollY > window.innerHeight * 0.6;
+    docEl.classList.toggle("rails-visible", railsOn);
+    if (railsOn) loadRails();
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();

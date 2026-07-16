@@ -40,7 +40,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Big+Shoulders+Display:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=9">
+  <link rel="stylesheet" href="css/style.css?v=10">
 
   <!-- Local-business structured data. Only verified facts included;
        add "telephone", "email" and "url" once confirmed (docs/seo-pack.md). -->
@@ -50,6 +50,9 @@
     "@type": "HomeAndConstructionBusiness",
     "name": "Viking Grading Solutions LLC",
     "slogan": "We move mountains.",
+    "url": "https://guyrstewart-sudo.github.io/viking-grading-solutions/",
+    "logo": "https://guyrstewart-sudo.github.io/viking-grading-solutions/assets/img/logo-viking-bone.png",
+    "image": "https://guyrstewart-sudo.github.io/viking-grading-solutions/assets/img/og-cover-v2.jpg",
     "description": "Veteran-owned land grading and excavation contractor serving Canton, Waynesville, Clyde, Candler, Asheville and the western North Carolina mountains.",
     "founder": { "@type": "Person", "name": "Jon Sprouse" },
     "address": { "@type": "PostalAddress", "addressLocality": "Canton", "addressRegion": "NC", "addressCountry": "US" },
@@ -71,7 +74,7 @@
   <header class="site-head">
     <div class="wrap-wide head-in">
       <a class="brand" href="index.html" aria-label="Viking Grading Solutions LLC — home">
-        <img class="brand-logo" src="assets/img/logo-viking-bone.png" alt="Viking Grading Solutions LLC" width="900" height="352">
+        <img class="brand-logo" src="assets/img/logo-viking-bone-432.png" srcset="assets/img/logo-viking-bone-432.png 432w, assets/img/logo-viking-bone.png 900w" sizes="(max-width: 600px) 128px, 215px" alt="Viking Grading Solutions LLC" width="900" height="352">
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h12"/></svg>
@@ -89,36 +92,39 @@
   <!-- Decorative gallery cascade on ultrawide side margins.
        Tiles use the placeholder art now; swap the background-image
        values to real job thumbnails as they come in. -->
+  <!-- Tiles carry data-bg (not background-image) so the ~4MB never downloads
+       unless the rails actually activate (>=2160px + scrolled past hero);
+       main.js sets the real background-image the first time rails become visible. -->
   <aside class="side-rail left" aria-hidden="true">
     <div class="rail-track">
-      <div style="background-image:url('assets/img/job-yard-regrade-home.webp')"></div>
-      <div style="background-image:url('assets/img/job-driveway-riprap.webp')"></div>
-      <div style="background-image:url('assets/img/job-excavation-machine.webp')"></div>
-      <div style="background-image:url('assets/img/job-building-pad-footings.webp')"></div>
-      <div style="background-image:url('assets/img/hero-excavator.webp')"></div>
-      <div style="background-image:url('assets/img/job-sitework-truck.webp')"></div>
-      <div style="background-image:url('assets/img/job-yard-regrade-home.webp')"></div>
-      <div style="background-image:url('assets/img/job-driveway-riprap.webp')"></div>
-      <div style="background-image:url('assets/img/job-excavation-machine.webp')"></div>
-      <div style="background-image:url('assets/img/job-building-pad-footings.webp')"></div>
-      <div style="background-image:url('assets/img/hero-excavator.webp')"></div>
-      <div style="background-image:url('assets/img/job-sitework-truck.webp')"></div>
+      <div data-bg="assets/img/job-yard-regrade-home-640.webp"></div>
+      <div data-bg="assets/img/job-driveway-riprap-640.webp"></div>
+      <div data-bg="assets/img/job-excavation-machine-640.webp"></div>
+      <div data-bg="assets/img/job-building-pad-footings-640.webp"></div>
+      <div data-bg="assets/img/hero-excavator-640.webp"></div>
+      <div data-bg="assets/img/job-sitework-truck-640.webp"></div>
+      <div data-bg="assets/img/job-yard-regrade-home-640.webp"></div>
+      <div data-bg="assets/img/job-driveway-riprap-640.webp"></div>
+      <div data-bg="assets/img/job-excavation-machine-640.webp"></div>
+      <div data-bg="assets/img/job-building-pad-footings-640.webp"></div>
+      <div data-bg="assets/img/hero-excavator-640.webp"></div>
+      <div data-bg="assets/img/job-sitework-truck-640.webp"></div>
     </div>
   </aside>
   <aside class="side-rail right" aria-hidden="true">
     <div class="rail-track">
-      <div style="background-image:url('assets/img/job-finish-grade-field.webp')"></div>
-      <div style="background-image:url('assets/img/job-building-pad-footings.webp')"></div>
-      <div style="background-image:url('assets/img/job-sitework-truck.webp')"></div>
-      <div style="background-image:url('assets/img/job-yard-regrade-home.webp')"></div>
-      <div style="background-image:url('assets/img/job-driveway-riprap.webp')"></div>
-      <div style="background-image:url('assets/img/hero-excavator.webp')"></div>
-      <div style="background-image:url('assets/img/job-finish-grade-field.webp')"></div>
-      <div style="background-image:url('assets/img/job-building-pad-footings.webp')"></div>
-      <div style="background-image:url('assets/img/job-sitework-truck.webp')"></div>
-      <div style="background-image:url('assets/img/job-yard-regrade-home.webp')"></div>
-      <div style="background-image:url('assets/img/job-driveway-riprap.webp')"></div>
-      <div style="background-image:url('assets/img/hero-excavator.webp')"></div>
+      <div data-bg="assets/img/job-finish-grade-field-640.webp"></div>
+      <div data-bg="assets/img/job-building-pad-footings-640.webp"></div>
+      <div data-bg="assets/img/job-sitework-truck-640.webp"></div>
+      <div data-bg="assets/img/job-yard-regrade-home-640.webp"></div>
+      <div data-bg="assets/img/job-driveway-riprap-640.webp"></div>
+      <div data-bg="assets/img/hero-excavator-640.webp"></div>
+      <div data-bg="assets/img/job-finish-grade-field-640.webp"></div>
+      <div data-bg="assets/img/job-building-pad-footings-640.webp"></div>
+      <div data-bg="assets/img/job-sitework-truck-640.webp"></div>
+      <div data-bg="assets/img/job-yard-regrade-home-640.webp"></div>
+      <div data-bg="assets/img/job-driveway-riprap-640.webp"></div>
+      <div data-bg="assets/img/hero-excavator-640.webp"></div>
     </div>
   </aside>
 
@@ -129,7 +135,9 @@
       <!-- Real job photo: Jon's Kobelco SK210 at golden hour, flag flying,
            on a WNC creek-cleanup site (from the Viking Grading Facebook page). -->
       <picture>
-        <source srcset="assets/img/hero-excavator.webp" type="image/webp">
+        <source media="(max-width: 600px)" type="image/webp" srcset="assets/img/hero-excavator-828.webp">
+        <source media="(max-width: 600px)" srcset="assets/img/hero-excavator-828.jpg">
+        <source type="image/webp" srcset="assets/img/hero-excavator.webp">
         <img class="hero-photo" src="assets/img/hero-excavator.jpg" alt="Viking Grading Solutions excavator working a creek-side site at golden hour near Canton, NC" fetchpriority="high" decoding="async">
       </picture>
       <canvas id="topo-canvas" aria-hidden="true"></canvas>
@@ -148,6 +156,7 @@
           <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5.3 5.6.6-4.2 3.9 1.2 5.5L12 14.5 7 17.3l1.2-5.5L4 7.9l5.6-.6z"/></svg> Veteran-owned</span>
           <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18l6-9 4 5 3-4 5 8z"/></svg> Mountain-lot specialists</span>
           <span><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/></svg> Haywood + Buncombe</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg> Free estimates</span>
         </div>
       </div>
       <!-- Service emblems (crucifix · U.S. Army · NC flag) — mockup only; hidden on the
@@ -164,21 +173,21 @@
     <div class="trust">
       <div class="wrap trust-in">
         <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v4M16 3v4"/><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M9 14l2 2 4-5"/></svg>
+          Free estimates
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+          <!-- Confirmed by Guy 2026-07-16: Jon is fully insured -->
+          Fully insured &amp; accountable
+        </div>
+        <div class="trust-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9.5 12l2 2 3.5-4"/></svg>
           Veteran-owned &amp; operated
         </div>
         <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
-          <!-- TODO: confirm license + insurance wording with Jon -->
-          Insured &amp; accountable
-        </div>
-        <div class="trust-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 18l6-9 4 5 3-4 5 8z"/><path d="M3 21h18"/></svg>
           Serving the WNC mountains
-        </div>
-        <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v4M16 3v4"/><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M9 14l2 2 4-5"/></svg>
-          Free estimates
         </div>
       </div>
     </div>
@@ -198,7 +207,7 @@
             <h3>Land Grading &amp; Leveling</h3>
             <p>Rough and final grade for yards, slopes, and building sites. We cut and fill
               to a plan — so water sheds where it should and the ground stays put.</p>
-            <p class="outcome"><b>You'll notice:</b>No standing water. Clean lines. A yard you can actually mow.</p>
+            <p class="outcome"><b>You'll notice:</b> No standing water. Clean lines. A yard you can actually mow.</p>
           </article>
 
           <article class="svc rv">
@@ -206,7 +215,7 @@
             <h3>Excavation &amp; Site Prep</h3>
             <p>Footings, foundations, utility trenches, and full site prep for new builds.
               Dug to spec, benched safe, and ready for the next trade to walk on.</p>
-            <p class="outcome"><b>You'll notice:</b>Your builder stops worrying about the dirt guy.</p>
+            <p class="outcome"><b>You'll notice:</b> Your builder stops worrying about the dirt guy.</p>
           </article>
 
           <article class="svc rv">
@@ -214,7 +223,7 @@
             <h3>Clearing &amp; Forestry Mulching</h3>
             <p>Brush, stumps, and grubbing — cleared and hauled, or mulched in place and
               returned to the ground. We open up the lot without tearing up what you're keeping.</p>
-            <p class="outcome"><b>You'll notice:</b>You can finally see the land you bought.</p>
+            <p class="outcome"><b>You'll notice:</b> You can finally see the land you bought.</p>
           </article>
 
           <article class="svc rv">
@@ -222,7 +231,7 @@
             <h3>Gravel Driveways &amp; Roads</h3>
             <p>New cuts, regrades, culverts, and proper crown on mountain grades.
               A driveway that holds through a WNC winter instead of washing into the creek.</p>
-            <p class="outcome"><b>You'll notice:</b>You stop dreading the drive home in the rain.</p>
+            <p class="outcome"><b>You'll notice:</b> You stop dreading the drive home in the rain.</p>
           </article>
 
           <article class="svc rv">
@@ -231,7 +240,7 @@
             <p>Stormwater control, French drains, swales, culverts, and erosion control.
               Water is the enemy of every structure in these mountains — we give it
               somewhere better to go.</p>
-            <p class="outcome"><b>You'll notice:</b>Dry crawlspace. Solid driveway. No more gullies.</p>
+            <p class="outcome"><b>You'll notice:</b> Dry crawlspace. Solid driveway. No more gullies.</p>
           </article>
 
           <article class="svc rv">
@@ -239,7 +248,7 @@
             <h3>Building, Barn &amp; Shop Pads</h3>
             <p>Compacted, level pads cut into the hillside for homes, garages, barns,
               and shops — with the drainage planned before the first bucket of dirt moves.</p>
-            <p class="outcome"><b>You'll notice:</b>Your concrete crew shows up and just pours.</p>
+            <p class="outcome"><b>You'll notice:</b> Your concrete crew shows up and just pours.</p>
           </article>
 
           <article class="svc rv">
@@ -247,7 +256,7 @@
             <h3>Retaining Walls</h3>
             <p>Block, boulder, and timber walls that hold the hill back for good — built
               on footing we cut ourselves, sized for mountain loads and mountain water.</p>
-            <p class="outcome"><b>You'll notice:</b>The slope stays where we left it.</p>
+            <p class="outcome"><b>You'll notice:</b> The slope stays where we left it.</p>
           </article>
 
           <article class="svc rv">
@@ -255,7 +264,7 @@
             <h3>Concrete Work</h3>
             <p>Pads, footers, walks, and flatwork — poured on ground we prepped ourselves,
               so the concrete never has to argue with the dirt underneath it.</p>
-            <p class="outcome"><b>You'll notice:</b>Flatwork that stays flat, because the base was right.</p>
+            <p class="outcome"><b>You'll notice:</b> Flatwork that stays flat, because the base was right.</p>
           </article>
 
           <article class="svc rv">
@@ -263,7 +272,7 @@
             <h3>Demolition &amp; Disaster Clean-Up</h3>
             <p>Tear-downs, haul-offs, and storm-damage cleanup — washouts, downed timber,
               flood debris. When the mountain makes a mess, we make it ground again.</p>
-            <p class="outcome"><b>You'll notice:</b>The problem's gone and the site's clean.</p>
+            <p class="outcome"><b>You'll notice:</b> The problem's gone and the site's clean.</p>
           </article>
         </div>
         <p class="fine-print mt-3 rv">
@@ -318,26 +327,28 @@
           site prep, driveways, drainage, and pads. Full gallery below.</p>
 
         <div class="work-grid">
-          <figure class="work-card rv"><picture><source srcset="assets/img/hero-excavator.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/img/hero-excavator.jpg" alt="Kobelco excavator on a creek-side cleanup job at golden hour, western NC"></picture>
+          <figure class="work-card rv"><picture><source type="image/webp" srcset="assets/img/hero-excavator-640.webp 640w, assets/img/hero-excavator.webp 1536w" sizes="(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 33vw"><img loading="lazy" decoding="async" src="assets/img/hero-excavator-640.jpg" srcset="assets/img/hero-excavator-640.jpg 640w, assets/img/hero-excavator.jpg 1536w" sizes="(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 33vw" width="640" height="853" alt="Kobelco excavator on a creek-side cleanup job at golden hour, western NC"></picture>
             <figcaption><small>Viking Grading</small>Creek cleanup &amp; regrade</figcaption></figure>
-          <figure class="work-card rv"><picture><source srcset="assets/img/job-driveway-riprap.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/img/job-driveway-riprap.jpg" alt="Gravel driveway with riprap stone drainage channel"></picture>
+          <figure class="work-card rv"><picture><source type="image/webp" srcset="assets/img/job-driveway-riprap-640.webp 640w, assets/img/job-driveway-riprap-1200.webp 1200w" sizes="(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 33vw"><img loading="lazy" decoding="async" src="assets/img/job-driveway-riprap-640.jpg" srcset="assets/img/job-driveway-riprap-640.jpg 640w, assets/img/job-driveway-riprap-1200.jpg 1200w" sizes="(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 33vw" width="640" height="853" alt="Gravel driveway with riprap stone drainage channel"></picture>
             <figcaption><small>Viking Grading</small>Gravel drive &amp; riprap drainage</figcaption></figure>
-          <figure class="work-card rv"><picture><source srcset="assets/img/job-building-pad-footings.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/img/job-building-pad-footings.jpg" alt="Level building pad with footing trench formed"></picture>
+          <figure class="work-card rv"><picture><source type="image/webp" srcset="assets/img/job-building-pad-footings-640.webp 640w, assets/img/job-building-pad-footings-1200.webp 1200w" sizes="(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 33vw"><img loading="lazy" decoding="async" src="assets/img/job-building-pad-footings-640.jpg" srcset="assets/img/job-building-pad-footings-640.jpg 640w, assets/img/job-building-pad-footings-1200.jpg 1200w" sizes="(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 33vw" width="640" height="500" alt="Level building pad with footing trench formed"></picture>
             <figcaption><small>Viking Grading</small>Building pad &amp; footings</figcaption></figure>
-          <figure class="work-card rv"><picture><source srcset="assets/img/job-excavation-machine.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/img/job-excavation-machine.jpg" alt="Excavator working a cleared red-clay lot"></picture>
+          <figure class="work-card rv"><picture><source type="image/webp" srcset="assets/img/job-excavation-machine-640.webp 640w, assets/img/job-excavation-machine-1200.webp 1200w" sizes="(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 66vw"><img loading="lazy" decoding="async" src="assets/img/job-excavation-machine-640.jpg" srcset="assets/img/job-excavation-machine-640.jpg 640w, assets/img/job-excavation-machine-1200.jpg 1200w" sizes="(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 66vw" width="640" height="480" alt="Excavator working a cleared red-clay lot"></picture>
             <figcaption><small>Viking Grading</small>Excavation &amp; lot work</figcaption></figure>
-          <figure class="work-card rv"><picture><source srcset="assets/img/job-yard-regrade-home.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/img/job-yard-regrade-home.jpg" alt="Freshly graded yard around a home"></picture>
+          <figure class="work-card rv"><picture><source type="image/webp" srcset="assets/img/job-yard-regrade-home-640.webp 640w, assets/img/job-yard-regrade-home-1200.webp 1200w" sizes="(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 33vw"><img loading="lazy" decoding="async" src="assets/img/job-yard-regrade-home-640.jpg" srcset="assets/img/job-yard-regrade-home-640.jpg 640w, assets/img/job-yard-regrade-home-1200.jpg 1200w" sizes="(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 33vw" width="640" height="853" alt="Freshly graded yard around a home"></picture>
             <figcaption><small>Viking Grading</small>Yard regrade around a home</figcaption></figure>
-          <figure class="work-card rv"><picture><source srcset="assets/img/job-sitework-truck.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/img/job-sitework-truck.jpg" alt="Excavator and truck on a graded site at golden hour"></picture>
+          <figure class="work-card rv"><picture><source type="image/webp" srcset="assets/img/job-sitework-truck-640.webp 640w, assets/img/job-sitework-truck-1200.webp 1200w" sizes="(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 33vw"><img loading="lazy" decoding="async" src="assets/img/job-sitework-truck-640.jpg" srcset="assets/img/job-sitework-truck-640.jpg 640w, assets/img/job-sitework-truck-1200.jpg 1200w" sizes="(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 33vw" width="640" height="853" alt="Excavator and truck on a graded site at golden hour"></picture>
             <figcaption><small>Viking Grading</small>Site work in progress</figcaption></figure>
+          <figure class="work-card rv"><picture><source type="image/webp" srcset="assets/img/job-slope-grading-home-640.webp 640w, assets/img/job-slope-grading-home.webp 1124w" sizes="(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 33vw"><img loading="lazy" decoding="async" src="assets/img/job-slope-grading-home-640.jpg" srcset="assets/img/job-slope-grading-home-640.jpg 640w, assets/img/job-slope-grading-home.jpg 1124w" sizes="(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 33vw" width="640" height="1166" alt="Graded slope and yard beside a mountain home"></picture>
+            <figcaption><small>Viking Grading</small>Slope grading beside a home</figcaption></figure>
         </div>
 
         <!-- Slider: rough vs finished grade (two real jobs). Swap in a true
              same-site before/after pair from Jon when available — highest-converting
              widget in this trade. -->
         <div class="ba rv" id="before-after">
-          <picture><source srcset="assets/img/job-excavation-machine.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/img/job-excavation-machine.jpg" alt="Rough grade — excavator working torn-up red-clay ground"></picture>
-          <div class="after-wrap"><picture><source srcset="assets/img/job-finish-grade-field.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/img/job-finish-grade-field.jpg" alt="Finish grade — smooth graded lot ready to seed"></picture></div>
+          <picture><source type="image/webp" srcset="assets/img/job-excavation-machine-640.webp 640w, assets/img/job-excavation-machine-1200.webp 1200w" sizes="(max-width: 1250px) 92vw, 1140px"><img loading="lazy" decoding="async" src="assets/img/job-excavation-machine-640.jpg" srcset="assets/img/job-excavation-machine-640.jpg 640w, assets/img/job-excavation-machine-1200.jpg 1200w" sizes="(max-width: 1250px) 92vw, 1140px" width="640" height="480" alt="Rough grade — excavator working torn-up red-clay ground"></picture>
+          <div class="after-wrap"><picture><source type="image/webp" srcset="assets/img/job-finish-grade-field-640.webp 640w, assets/img/job-finish-grade-field-1200.webp 1200w" sizes="(max-width: 1250px) 92vw, 1140px"><img loading="lazy" decoding="async" src="assets/img/job-finish-grade-field-640.jpg" srcset="assets/img/job-finish-grade-field-640.jpg 640w, assets/img/job-finish-grade-field-1200.jpg 1200w" sizes="(max-width: 1250px) 92vw, 1140px" width="640" height="853" alt="Finish grade — smooth graded lot ready to seed"></picture></div>
           <div class="ba-handle" aria-hidden="true"></div>
           <span class="tag before">Rough grade</span><span class="tag after">Finish grade</span>
           <input type="range" min="0" max="100" value="50" aria-label="Drag to compare rough grade and finish grade">
@@ -378,10 +389,18 @@
       <div class="wrap">
         <p class="eyebrow rv">Word of mouth</p>
         <h2 class="rv">What neighbors say.</h2>
-        <p class="lede rv">Reviews below are layout templates — paste the real ones,
-          word for word, from the Facebook page as they come in.</p>
+        <p class="lede rv">Our word is simple: show up, grade it right, leave it clean.
+          The neighbors are starting to say the same.</p>
 
-        <div class="reviews-grid">
+        <!-- Interim public state: honest strip + the one live proof channel.
+             Real reviews (verbatim from Facebook) go into the gated grid below;
+             remove .is-template from a card + paste the text, then delete this strip. -->
+        <div class="reviews-interim rv">
+          <p>First reviews are coming in now — read them straight from the source.</p>
+          <a class="btn btn-ghost" href="https://www.facebook.com/profile.php?id=61577352263482" rel="noopener" target="_blank">Read our reviews on Facebook</a>
+        </div>
+
+        <div class="reviews-grid is-template-set">
           <!-- Template review cards. Replace blockquote + cite with REAL reviews
                copied verbatim from Facebook. Remove the "is-template" class
                once real text is in — that clears the TEMPLATE watermark. -->
@@ -408,7 +427,6 @@
             <cite>[Customer name]<small>[Town, NC]</small></cite>
           </article>
         </div>
-        <p class="mt-3 rv"><a class="btn btn-ghost" href="https://www.facebook.com/profile.php?id=61577352263482" rel="noopener" target="_blank">Read our reviews on Facebook</a></p>
       </div>
     </section>
 
@@ -448,7 +466,7 @@
     <div class="wrap foot-grid">
       <div>
         <a class="brand" href="index.html" aria-label="Viking Grading Solutions LLC — home">
-          <img class="brand-logo foot-logo" src="assets/img/logo-viking-bone.png" alt="Viking Grading Solutions LLC" width="900" height="352">
+          <img class="brand-logo foot-logo" src="assets/img/logo-viking-bone-432.png" srcset="assets/img/logo-viking-bone-432.png 432w, assets/img/logo-viking-bone.png 900w" sizes="154px" alt="Viking Grading Solutions LLC" width="900" height="352">
         </a>
         <p class="foot-tag" style="margin-top:1.2rem">Veteran-owned grading &amp; excavation
           for the western North Carolina mountains. We move mountains — carefully.</p>
@@ -493,8 +511,12 @@
 
   <script src="js/topo-bg.js" defer></script>
   <script src="js/main.js" defer></script>
-  <!-- Preview switch: add ?emblems to the URL to view the service-emblems mockup
-       (crucifix · U.S. Army · NC flag). Off by default so the live homepage is clean. -->
-  <script>if(/emblems/.test(location.search)){document.body.classList.add('emblem-mockup');}</script>
+  <!-- Preview switches (off by default so the live homepage is clean):
+       ?emblems=1 — service-emblems mockup (crucifix · U.S. Army · NC flag)
+       ?reviews=1 — the review-card layout templates (paste real reviews there) -->
+  <script>
+    if(/emblems/.test(location.search)){document.body.classList.add('emblem-mockup');}
+    if(/reviews/.test(location.search)){document.body.classList.add('reviews-preview');}
+  </script>
 </body>
 </html>

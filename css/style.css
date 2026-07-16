@@ -15,7 +15,8 @@
   --char-2:  #2B2F39;   /* raised surface */
   --bone:    #EDE6DA;   /* light text / paper sections */
   --bone-2:  #E0D6C4;   /* paper shade */
-  --steel:   #7A8B99;   /* muted secondary */
+  --steel:   #7A8B99;   /* muted secondary (AA on iron only) */
+  --steel-lt:#8C9DAB;   /* lighter steel — AA (4.5:1+) on charcoal surfaces */
   --steel-2: #5C6B77;
   --ember:   #E8871E;   /* accent — CTAs, highlights */
   --ember-2: #C96F12;   /* accent hover */
@@ -50,6 +51,10 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Anchor jumps must clear the fixed header (header ≈ 92px mobile / 113px desktop). */
+[id] { scroll-margin-top: 5.75rem; }
+@media (min-width: 1200px) { [id] { scroll-margin-top: 8.5rem; } }
 
 body {
   margin: 0;
@@ -135,6 +140,7 @@ p:last-child { margin-bottom: 0; }
 
 .lede { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--steel); max-width: 46em; }
 .sec-paper .lede { color: #4C5660; }
+.sec-char .lede { color: var(--steel-lt); } /* steel fails AA on charcoal */
 /* --steel-2 lands ~4.4:1 on bone (just shy of AA); use a darker ink for
    muted text specifically on paper/bone surfaces. */
 .sec-paper .std p, .std p,
@@ -188,26 +194,20 @@ p:last-child { margin-bottom: 0; }
   display: flex; align-items: center; gap: 0.75rem;
   text-decoration: none; color: var(--bone);
 }
-.brand svg { width: 42px; height: 42px; flex: none; }
 /* Jon's real logo lockup (bone-on-transparent). Sized by height; the wide
-   2.56:1 aspect sets the width. */
-.brand-logo { height: 132px; width: auto; display: block; } /* 3x larger */
+   2.56:1 aspect sets the width. Shrinks on scroll (see .is-scrolled below). */
+.brand-logo { height: 84px; width: auto; display: block; transition: height 0.25s var(--ease); }
 .foot-logo { height: 60px; }
-/* taper the big logo down on smaller screens so the header stays sane */
-@media (max-width: 1080px) { .brand-logo { height: 78px; } }
+/* taper the logo down on smaller screens so the header stays sane */
+@media (max-width: 1199px) { .brand-logo { height: 70px; } }
 @media (max-width: 600px)  { .brand-logo { height: 50px; } }
-.brand-name {
-  font-family: var(--f-disp); font-weight: 800; font-size: 1.3rem;
-  letter-spacing: 0.06em; text-transform: uppercase; line-height: 1;
-}
-.brand-name small {
-  display: block; font-family: var(--f-body); font-weight: 600;
-  font-size: 0.62rem; letter-spacing: 0.34em; color: var(--steel);
-}
+.site-head.is-scrolled .brand-logo { height: 58px; }
 
-.nav { display: flex; align-items: center; gap: 1.4rem; }
+.nav { display: flex; align-items: center; gap: 1.5rem; }
 .nav a {
-  font-weight: 600; font-size: 2.3rem; letter-spacing: 0.02em; /* 2.5x larger nav */
+  /* Fluid: never wraps at laptop widths; council-ruled ~1.2-1.35rem band */
+  font-weight: 600; font-size: clamp(1.15rem, 0.55rem + 0.9vw, 1.35rem);
+  letter-spacing: 0.04em; white-space: nowrap;
   text-decoration: none; color: var(--bone); opacity: 0.85;
   padding-block: 0.4rem; position: relative;
 }
@@ -216,7 +216,7 @@ p:last-child { margin-bottom: 0; }
   content: ""; position: absolute; left: 0; right: 0; bottom: 0;
   height: 2px; background: var(--ember);
 }
-.nav .btn { margin-left: 0.5rem; font-size: 1.5rem; padding: 0.7rem 1.5rem; }
+.nav .btn { margin-left: 0.5rem; font-size: 1.05rem; padding: 0.65rem 1.3rem; }
 /* The generic .nav a color rules above out-rank .btn-primary's own color
    (higher specificity), which would leave the header CTA text bone-on-ember
    or, with aria-current, invisible ember-on-ember. Restore dark button text. */
@@ -231,7 +231,7 @@ p:last-child { margin-bottom: 0; }
 }
 .nav-toggle svg { width: 30px; height: 30px; }
 
-@media (max-width: 1080px) {
+@media (max-width: 1199px) {
   .nav-toggle { display: block; }
   .nav {
     position: fixed; inset: 0; z-index: 55;
@@ -299,6 +299,8 @@ p:last-child { margin-bottom: 0; }
 .hero::after { /* settle the text zone — darker now that a photo sits under it */
   content: ""; position: absolute; inset: 0; z-index: 2;
   background:
+    /* top scrim: keeps the transparent header's nav legible over bright sky */
+    linear-gradient(180deg, rgba(16,18,22,0.55) 0%, transparent 17%),
     linear-gradient(90deg, rgba(16,18,22,0.92) 0%, rgba(16,18,22,0.62) 42%, rgba(16,18,22,0.20) 72%, transparent 100%),
     linear-gradient(0deg, rgba(16,18,22,0.85) 0%, transparent 34%);
   pointer-events: none;
@@ -357,12 +359,18 @@ p:last-child { margin-bottom: 0; }
 
 /* ---------- 8. Service cards ---------- */
 .svc-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.3rem;
+  /* 3 columns everywhere wide: 9 cards = a clean 3x3 (council ruling — no orphan row) */
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem;
   margin-top: 3rem;
 }
-@media (max-width: 1160px) { .svc-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 900px)  { .svc-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 600px)  { .svc-grid { grid-template-columns: 1fr; } }
+@media (max-width: 900px)  {
+  .svc-grid { grid-template-columns: 1fr 1fr; }
+  .svc-grid .svc:nth-child(9) { grid-column: 1 / -1; } /* 9th spans, no orphan */
+}
+@media (max-width: 600px)  {
+  .svc-grid { grid-template-columns: 1fr; }
+  .svc-grid .svc:nth-child(9) { grid-column: auto; }
+}
 
 .svc {
   background: var(--char);
@@ -374,7 +382,7 @@ p:last-child { margin-bottom: 0; }
 .svc:hover { transform: translateY(-5px); border-color: rgba(232, 135, 30, 0.55); background: var(--char-2); }
 .svc svg.icon { width: 44px; height: 44px; color: var(--ember); margin-bottom: 1.2rem; }
 .svc h3 { font-size: var(--fs-h3); letter-spacing: 0.05em; }
-.svc p { color: var(--steel); font-size: 0.96rem; }
+.svc p { color: var(--steel-lt); font-size: 0.96rem; }
 .svc .outcome {
   margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line);
   font-size: 0.85rem; font-weight: 600; color: var(--bone);
@@ -394,8 +402,7 @@ p:last-child { margin-bottom: 0; }
   line-height: 1; display: block; margin-bottom: 0.6rem;
 }
 .std h3 { font-size: 1.25rem; }
-.std p { font-size: 0.95rem; color: var(--steel-2); }
-.sec-paper .std p { color: var(--steel-2); }
+.std p { font-size: 0.95rem; } /* color comes from the #4C5660 paper-ink rule up top (AA) */
 
 /* ---------- 10. Work / gallery ---------- */
 .work-grid {
@@ -480,7 +487,8 @@ p:last-child { margin-bottom: 0; }
   clip-path: polygon(0 0, calc(100% - 25px) 0, 100% 25px, 100% 100%, 0 100%);
   background-size: cover; background-position: center;
 }
-@media (min-width: 1720px) { .side-rail { display: block; } }
+/* 2160px = 1400px wrap-wide + 2x375px rails + buffer — rails can never overlap content */
+@media (min-width: 2160px) { .side-rail { display: block; } }
 /* ...and fades in once the hero is scrolled past (class set in main.js) */
 .rails-visible .side-rail { opacity: 0.5; }
 @media (prefers-reduced-motion: no-preference) {
@@ -531,7 +539,7 @@ p:last-child { margin-bottom: 0; }
 .trio figcaption h3 { margin: 1.1rem 0 0.35rem; font-size: 1.3rem; }
 .trio figcaption h3 span { color: var(--ember); }
 .trio figcaption p { font-size: 0.93rem; color: var(--steel); }
-.sec-paper .trio figcaption p { color: var(--steel-2); }
+/* on paper the #4C5660 ink rule up top applies (AA) */
 
 /* values strip */
 .values { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-top: 2.6rem; }
@@ -541,8 +549,8 @@ p:last-child { margin-bottom: 0; }
   border-top: 3px solid var(--ember); background: var(--char);
   padding: 1.2rem 1.2rem 1.1rem;
 }
-.value h4 { font-size: 1.05rem; margin-bottom: 0.3rem; }
-.value p { font-size: 0.88rem; color: var(--steel); margin: 0; }
+.value h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+.value p { font-size: 0.88rem; color: var(--steel-lt); margin: 0; }
 
 /* ---------- 13. Reviews ---------- */
 .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin-top: 3rem; }
@@ -559,7 +567,28 @@ p:last-child { margin-bottom: 0; }
   font-style: normal; font-weight: 700; font-size: 0.85rem;
   letter-spacing: 0.08em; text-transform: uppercase;
 }
-.review cite small { display: block; font-weight: 600; color: var(--steel-2); letter-spacing: 0.12em; font-size: 0.7rem; }
+.review cite small { display: block; font-weight: 600; letter-spacing: 0.12em; font-size: 0.7rem; } /* color: #4C5660 ink rule (AA on bone) */
+/* Banked premium treatment — applies automatically to REAL reviews (any .review
+   without .is-template): oversized ember quote glyph + ember corner tab. */
+.review:not(.is-template) { padding-top: 3.1rem; }
+.review:not(.is-template)::before {
+  content: "\201C"; position: absolute; top: 0.4rem; left: 1.1rem;
+  font-family: var(--f-disp); font-weight: 800; font-size: 4.2rem;
+  color: var(--ember); line-height: 1; pointer-events: none;
+}
+.review:not(.is-template)::after {
+  content: ""; position: absolute; left: 0; bottom: 0; width: 64px; height: 8px;
+  background: var(--ember);
+}
+
+/* Interim public state: template cards are PREVIEW-ONLY (?reviews=1 sets
+   body.reviews-preview, same pattern as the emblem gate). Public visitors see
+   the honest strip instead — nothing placeholder ever ships by default. */
+.reviews-grid.is-template-set { display: none; }
+body.reviews-preview .reviews-grid.is-template-set { display: grid; }
+.reviews-interim { margin-top: 2.4rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1.4rem; }
+.reviews-interim p { margin: 0; font-size: 1.02rem; color: var(--steel); }
+
 /* template state — obviously a placeholder until real reviews are pasted in */
 .review.is-template { background: repeating-linear-gradient(-45deg, var(--bone) 0 18px, var(--bone-2) 18px 36px); }
 .review.is-template blockquote { color: var(--steel-2); font-style: italic; }
@@ -576,6 +605,9 @@ p:last-child { margin-bottom: 0; }
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone);
 }
 .area-tags span b { color: var(--ember); font-weight: 700; }
+/* the section lives on paper — bone-on-bone is invisible; use dark ink there */
+.sec-paper .area-tags span { color: var(--iron); border-color: var(--line-dk); }
+.sec-paper .area-tags span b { color: var(--ember-2); }
 
 /* ---------- 15. CTA band ---------- */
 .cta-band {
@@ -598,7 +630,6 @@ p:last-child { margin-bottom: 0; }
   clip-path: polygon(0 0, calc(100% - var(--notch)) 0, 100% var(--notch), 100% 100%, 0 100%);
 }
 .panel h2 { font-size: 1.7rem; }
-.panel + .panel { margin-top: 0; }
 .panel-stack { display: grid; gap: 1.6rem; }
 
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin-top: 1.6rem; }
@@ -607,19 +638,19 @@ p:last-child { margin-bottom: 0; }
 
 label {
   display: block; font-size: 0.72rem; font-weight: 800;
-  letter-spacing: 0.16em; text-transform: uppercase; color: var(--steel);
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--steel-lt);
   margin-bottom: 0.45rem;
 }
 input, select, textarea {
   width: 100%; background: var(--iron); color: var(--bone);
   border: 1px solid var(--line); padding: 0.85rem 1rem;
-  font: inherit; font-size: 0.97rem;
+  font: inherit; font-size: 1rem; /* >=16px: prevents iOS focus auto-zoom */
 }
 input:focus, select:focus, textarea:focus {
   outline: 2px solid var(--ember); outline-offset: 0; border-color: var(--ember);
 }
 textarea { min-height: 132px; resize: vertical; }
-.form-note { font-size: 0.8rem; color: var(--steel); margin-top: 0.9rem; }
+.form-note { font-size: 0.8rem; color: var(--steel-lt); margin-top: 0.9rem; }
 
 /* steps strip */
 .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-top: 3rem; counter-reset: step; }
@@ -633,7 +664,7 @@ textarea { min-height: 132px; resize: vertical; }
   display: block; line-height: 1; margin-bottom: 0.55rem;
 }
 .step h3 { font-size: 1.15rem; }
-.step p { font-size: 0.9rem; color: var(--steel-2); }
+.step p { font-size: 0.9rem; color: var(--steel); }
 
 /* FAQ */
 .faq { margin-top: 2.6rem; display: grid; gap: 0.8rem; max-width: 860px; }
@@ -653,7 +684,7 @@ textarea { min-height: 132px; resize: vertical; }
   font-size: 1.5rem; font-weight: 400; transition: transform 0.2s;
 }
 .faq details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
-.faq details p { padding: 0 1.4rem 1.3rem; color: var(--steel); font-size: 0.96rem; }
+.faq details p { padding: 0 1.4rem 1.3rem; color: var(--steel-lt); font-size: 0.96rem; }
 
 /* ---------- 17. Before / After slider ---------- */
 .ba {
@@ -677,7 +708,10 @@ textarea { min-height: 132px; resize: vertical; }
 .ba input[type="range"] {
   position: absolute; inset: 0; width: 100%; height: 100%;
   opacity: 0; cursor: ew-resize; z-index: 4; margin: 0;
+  touch-action: pan-y; /* vertical thumb-scrolls pass through to the page */
 }
+/* the input itself is opacity:0, so draw keyboard focus on the widget frame */
+.ba:focus-within { outline: 2px solid var(--ember); outline-offset: 3px; }
 .ba .tag {
   position: absolute; top: 12px; z-index: 2;
   font-size: 0.66rem; font-weight: 800; letter-spacing: 0.18em;

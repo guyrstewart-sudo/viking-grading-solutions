@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# TODO once the custom domain is live, uncomment and fill:
-# Sitemap: https://{{DOMAIN}}/sitemap.xml
+Sitemap: https://guyrstewart-sudo.github.io/viking-grading-solutions/sitemap.xml

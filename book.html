@@ -27,9 +27,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Big+Shoulders+Display:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=10">
 
-  <!-- FAQ structured data — only questions whose answers are fully confirmed -->
+  <!-- FAQ structured data — kept VERBATIM in sync with the visible <details> FAQ below.
+       If you edit one, edit both. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -38,17 +39,27 @@
       {
         "@type": "Question",
         "name": "Do you work on steep lots?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Steep is normal in western North Carolina, and it is most of what we grade — tight access, hard slopes, tricky lines. If a lot has a driveway to it, we can probably work it." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Steep is normal out here. Western North Carolina doesn't hand out flat ground for free, and that's most of what we grade — tight access, hard slopes, tricky lines. If a lot has a driveway to it, we can probably work it." }
       },
       {
         "@type": "Question",
         "name": "How much does grading cost?",
-        "acceptedAnswer": { "@type": "Answer", "text": "It depends on the ground — slope, access, rock, and how much dirt actually has to move. We do not guess at numbers over the phone. The on-site walk-through is free, and you get a straight price before anything starts." }
+        "acceptedAnswer": { "@type": "Answer", "text": "It depends on the ground — slope, access, rock, how much dirt actually has to move. We won't guess at a number over the phone, because a guess isn't worth much to you. The on-site walk-through is free: Jon looks at your property and gives you a straight price before anything starts." }
+      },
+      {
+        "@type": "Question",
+        "name": "How soon can you start?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Depends on the job and what's already on the schedule. Ask when you request your estimate — Jon will give you a real date, not a runaround." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are you insured?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — Viking Grading Solutions LLC is fully insured. If you'd like proof of insurance for your records, just ask when we set up your site walk." }
       },
       {
         "@type": "Question",
         "name": "What areas do you serve?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Canton, Waynesville, Clyde, Candler, Asheville, Leicester, Maggie Valley, and Sylva — Haywood and Buncombe counties and the lots in between." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Canton, Waynesville, Clyde, Candler, Asheville, Leicester, Maggie Valley, Sylva — Haywood and Buncombe counties and the lots in between. Not sure if you're in range? Ask. Chances are we've already worked near you." }
       }
     ]
   }
@@ -60,7 +71,7 @@
   <header class="site-head">
     <div class="wrap-wide head-in">
       <a class="brand" href="index.html" aria-label="Viking Grading Solutions LLC — home">
-        <img class="brand-logo" src="assets/img/logo-viking-bone.png" alt="Viking Grading Solutions LLC" width="900" height="352">
+        <img class="brand-logo" src="assets/img/logo-viking-bone-432.png" srcset="assets/img/logo-viking-bone-432.png 432w, assets/img/logo-viking-bone.png 900w" sizes="(max-width: 600px) 128px, 215px" alt="Viking Grading Solutions LLC" width="900" height="352">
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h12"/></svg>
@@ -89,16 +100,20 @@
       <div class="wrap panels">
 
         <!-- ============ PANEL 1: ESTIMATE FORM ============
-             Static-site form. Wire-up options (see docs/stripe-square-booking-setup.md):
-             Option A (recommended): FormSubmit — replace action with
-               https://formsubmit.co/{VERIFIED-EMAIL-OR-HASH} after activation.
-             Option B: Netlify Forms / Formspree if hosting changes.
-             Until wired, js/main.js intercepts submit and shows the notice below. -->
+             LIVE via FormSubmit since 2026-07-16 (email confirmed by Guy).
+             First real submission triggers FormSubmit's one-time activation email
+             to the inbox — click that link once and delivery starts.
+             TODO (1 min, anti-scraper): after activation, FormSubmit's email
+             includes a random alias string — swap it into action= so the raw
+             address leaves the HTML. Docs: docs/stripe-square-booking-setup.md -->
         <div class="panel">
           <h2>Request an estimate</h2>
           <p>Tell us about your property and what you need done. The more detail,
             the better the estimate.</p>
-          <form id="estimate-form" action="{{FORM_ENDPOINT}}" method="POST" class="form-grid">
+          <form id="estimate-form" action="https://formsubmit.co/vikinggradingsolutions@gmail.com" method="POST" class="form-grid">
+            <input type="hidden" name="_subject" value="New estimate request — Viking Grading site">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://guyrstewart-sudo.github.io/viking-grading-solutions/thanks.html">
             <div>
               <label for="f-name">Name</label>
               <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Your full name" required>
@@ -145,11 +160,11 @@
             </div>
             <div class="full">
               <button class="btn btn-primary btn-lg" type="submit">Send my request</button>
-              <p class="form-note">Got photos of the site? Have them ready — we'll reply and
-                you can text or email them straight to Jon. No spam, no sales calls.</p>
+              <p class="form-note">Your request goes straight to Jon. Got photos of the site?
+                Have them ready — we'll reply and you can send them right back. No spam, no sales calls.</p>
               <p class="form-note" id="form-pending" hidden style="color:var(--ember)">
-                The online form goes live with the site launch — we're setting up a
-                professional email for direct contact. Check back shortly.</p>
+                Something's wrong with the form right now — sorry about that.
+                Please try again shortly.</p>
             </div>
           </form>
         </div>
@@ -221,13 +236,19 @@
               your estimate — Jon will give you a real date, not a runaround.</p>
           </details>
           <details class="rv">
+            <summary>Are you insured?</summary>
+            <p>Yes — Viking Grading Solutions LLC is fully insured. If you'd like proof
+              of insurance for your records, just ask when we set up your site walk.</p>
+          </details>
+          <details class="rv">
             <summary>What areas do you serve?</summary>
             <p>Canton, Waynesville, Clyde, Candler, Asheville, Leicester, Maggie Valley,
               Sylva — Haywood and Buncombe counties and the lots in between. Not sure if
               you're in range? Ask. Chances are we've already worked near you.</p>
           </details>
-          <!-- TODO: add "Are you insured?" and "Do you handle permits?" once Jon
-               confirms the exact answers — see docs/facts-to-confirm.md -->
+          <!-- TODO: add "Do you handle permits?" once Jon confirms the exact answer
+               — see docs/facts-to-confirm.md. Keep the JSON-LD block in <head> in
+               verbatim sync with any FAQ change. -->
         </div>
       </div>
     </section>
@@ -252,7 +273,7 @@
     <div class="wrap foot-grid">
       <div>
         <a class="brand" href="index.html" aria-label="Viking Grading Solutions LLC — home">
-          <img class="brand-logo foot-logo" src="assets/img/logo-viking-bone.png" alt="Viking Grading Solutions LLC" width="900" height="352">
+          <img class="brand-logo foot-logo" src="assets/img/logo-viking-bone-432.png" srcset="assets/img/logo-viking-bone-432.png 432w, assets/img/logo-viking-bone.png 900w" sizes="154px" alt="Viking Grading Solutions LLC" width="900" height="352">
         </a>
         <p class="foot-tag" style="margin-top:1.2rem">Veteran-owned grading &amp; excavation
           for the western North Carolina mountains. We move mountains — carefully.</p>
