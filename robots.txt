@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://guyrstewart-sudo.github.io/viking-grading-solutions/sitemap.xml
+Sitemap: https://vikinggradingsolutions.com/sitemap.xml
