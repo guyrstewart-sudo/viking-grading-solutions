@@ -443,11 +443,7 @@ p:last-child { margin-bottom: 0; }
 .svc svg.icon { width: 44px; height: 44px; color: var(--ember); margin-bottom: 1.2rem; }
 .svc h3 { font-size: var(--fs-h3); letter-spacing: 0.05em; }
 .svc p { color: var(--steel-lt); font-size: 0.96rem; }
-.svc .outcome {
-  margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line);
-  font-size: 0.85rem; font-weight: 600; color: var(--bone);
-}
-.svc .outcome b { color: var(--ember); font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.72rem; display: block; margin-bottom: 0.25rem; }
+/* (the "You'll notice" outcome lines were removed 2026-07-16 per Jon) */
 
 /* ---------- 9. Viking Standard (promises) ---------- */
 .std-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; margin-top: 3rem; }
@@ -641,8 +637,8 @@ p:last-child { margin-bottom: 0; }
   background: var(--ember); z-index: 2; pointer-events: none;
 }
 
-/* Built Different trio */
-.trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin-top: 3rem; }
+/* Built Different pair (was a trio until the Arena item was retired 2026-07-16) */
+.trio { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; margin-top: 3rem; max-width: 920px; }
 @media (max-width: 860px) { .trio { grid-template-columns: 1fr; } }
 .trio figure { margin: 0; }
 .trio .frame {
