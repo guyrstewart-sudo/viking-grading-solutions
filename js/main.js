@@ -6,6 +6,8 @@
 (function () {
   "use strict";
 
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   /* ---------- sticky header state ---------- */
   var head = document.querySelector(".site-head");
   var docEl = document.documentElement;
@@ -33,28 +35,51 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---------- mobile nav ---------- */
+  /* ---------- mobile nav (Escape closes; Tab stays inside; icon morphs
+     via [aria-expanded] CSS; desktop resize force-unlocks body scroll) ---------- */
   var toggle = document.querySelector(".nav-toggle");
   var nav = document.getElementById("site-nav");
   if (toggle && nav) {
+    var closeNav = function (returnFocus) {
+      nav.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+      if (returnFocus) toggle.focus();
+    };
     toggle.addEventListener("click", function () {
       var open = nav.classList.toggle("is-open");
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
       document.body.style.overflow = open ? "hidden" : "";
-    });
-    nav.addEventListener("click", function (e) {
-      if (e.target.closest("a")) {
-        nav.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
+      if (open) {
+        var first = nav.querySelector("a");
+        if (first) first.focus();
       }
     });
+    nav.addEventListener("click", function (e) {
+      if (e.target.closest("a")) closeNav(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (!nav.classList.contains("is-open")) return;
+      if (e.key === "Escape") { closeNav(true); return; }
+      if (e.key === "Tab") {
+        var links = nav.querySelectorAll("a");
+        if (!links.length) return;
+        var first = links[0], last = links[links.length - 1];
+        var inside = nav.contains(document.activeElement) || document.activeElement === toggle;
+        if (!inside) { e.preventDefault(); first.focus(); }
+        else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+    var mqDesktop = window.matchMedia("(min-width: 1200px)");
+    var onDesktop = function (e) { if (e.matches) closeNav(false); };
+    mqDesktop.addEventListener ? mqDesktop.addEventListener("change", onDesktop)
+                               : mqDesktop.addListener(onDesktop);
   }
 
   /* ---------- reveal on scroll (only if IO exists — content is
      visible by default; we pre-hide AFTER confirming we can reveal) ---------- */
-  if ("IntersectionObserver" in window &&
-      !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  if ("IntersectionObserver" in window && !reduceMotion) {
     document.documentElement.classList.add("rv-init");
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
@@ -99,14 +124,60 @@
     var range = ba.querySelector("input[type=range]");
     var after = ba.querySelector(".after-wrap");
     var handle = ba.querySelector(".ba-handle");
+    var read = ba.querySelector(".ba-read");
     if (!range || !after || !handle) return;
     function setPos(v) {
       after.style.clipPath = "inset(0 0 0 " + v + "%)";
       handle.style.left = v + "%";
+      if (read) read.textContent = "◂ " + Math.round(v) + "% ▸";
     }
     range.addEventListener("input", function () { setPos(range.value); });
     setPos(range.value);
   });
+
+  /* ---------- proof band count-up (markup ships the FINAL numbers;
+     JS only animates from 0 when motion is welcome) ---------- */
+  var proofNums = document.querySelectorAll(".proof .num [data-count]");
+  if (proofNums.length && "IntersectionObserver" in window && !reduceMotion) {
+    var pio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        pio.unobserve(en.target);
+        var target = parseInt(en.target.getAttribute("data-count"), 10);
+        var t0 = null;
+        function tick(now) {
+          if (!t0) t0 = now;
+          var p = Math.min((now - t0) / 900, 1);
+          p = 1 - Math.pow(1 - p, 3);
+          en.target.textContent = Math.round(target * p);
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        en.target.textContent = "0";
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.5 });
+    proofNums.forEach(function (n) { pio.observe(n); });
+  }
+
+  /* ---------- sticky mobile action bar (progressive enhancement;
+     hidden while the estimate form itself is on screen) ---------- */
+  if (!document.querySelector(".mobile-cta")) {
+    var bar = document.createElement("div");
+    bar.className = "mobile-cta";
+    bar.setAttribute("role", "region");
+    bar.setAttribute("aria-label", "Quick actions");
+    bar.innerHTML =
+      '<a class="btn btn-primary" href="book.html#estimate-form">Get an estimate</a>' +
+      '<a class="btn btn-ghost" href="gallery.html">See our work</a>';
+    document.body.appendChild(bar);
+    document.body.classList.add("has-mobile-cta");
+    var formEl = document.getElementById("estimate-form");
+    if (formEl && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) {
+        bar.classList.toggle("is-hidden", en[0].isIntersecting);
+      }, { threshold: 0.1 }).observe(formEl);
+    }
+  }
 
   /* ---------- estimate form ----------
      The form ships un-wired (no backend on a static site). Until the

@@ -27,12 +27,14 @@
   --f-disp: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
   --f-body: "Archivo", "Segoe UI", Arial, sans-serif;
 
-  /* fluid scale */
-  --fs-hero: clamp(3.4rem, 9.5vw, 7.5rem);
-  --fs-h1:   clamp(2.6rem, 6vw, 4.6rem);
-  --fs-h2:   clamp(2rem, 4.2vw, 3.2rem);
-  --fs-h3:   clamp(1.15rem, 2vw, 1.45rem);
-  --fs-body: clamp(1rem, 1.1vw, 1.075rem);
+  /* fluid scale — rem+vw slope form (pure-vw overshot before capping);
+     caps sit ~8% under visual target because desktop >=1200px runs zoom:1.1 */
+  --fs-hero: clamp(3.25rem, 2.4rem + 5.4vw, 6.9rem);
+  --fs-h1:   clamp(2.5rem, 1.9rem + 3vw, 4.25rem);
+  --fs-h2:   clamp(1.9rem, 1.5rem + 1.9vw, 3rem);
+  --fs-h3:   clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+  --fs-body: clamp(1rem, 0.95rem + 0.28vw, 1.08rem);
+  --fs-lede: clamp(1.05rem, 0.95rem + 0.55vw, 1.22rem);
   --fs-sm:   0.875rem;
 
   /* rhythm */
@@ -86,6 +88,7 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   letter-spacing: 0.015em;
 }
+h1, h2 { text-wrap: balance; }
 
 p { margin: 0 0 1.1em; }
 p:last-child { margin-bottom: 0; }
@@ -138,7 +141,7 @@ p:last-child { margin-bottom: 0; }
 }
 .sec-paper .eyebrow { color: #9A5410; } /* darker burnt-ember: passes AA on bone */
 
-.lede { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--steel); max-width: 46em; }
+.lede { font-size: var(--fs-lede); color: var(--steel); max-width: 46em; text-wrap: pretty; }
 .sec-paper .lede { color: #4C5660; }
 .sec-char .lede { color: var(--steel-lt); } /* steel fails AA on charcoal */
 /* --steel-2 lands ~4.4:1 on bone (just shy of AA); use a darker ink for
@@ -153,6 +156,36 @@ p:last-child { margin-bottom: 0; }
   background: repeating-linear-gradient(-45deg,
     var(--ember) 0 14px, var(--iron-2) 14px 28px);
 }
+
+/* surveyor divider family — quieter siblings of the hazard stripe */
+.divider-laser {
+  position: relative; height: 1px; margin: 0;
+  background: linear-gradient(90deg, transparent, var(--line) 12%, var(--line) 88%, transparent);
+}
+.divider-laser::after { /* laser-level crosshair target */
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: 12px; height: 12px; transform: translate(-50%, -50%) rotate(45deg);
+  border: 2px solid var(--ember); background: var(--iron);
+}
+
+/* proof band — count-up stats in the stroked-numeral language */
+.proof-band {
+  background: var(--iron-2); border-block: 1px solid var(--line);
+  padding-block: 2.4rem;
+}
+.proof-in { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; text-align: center; }
+.proof .num {
+  font-family: var(--f-disp); font-weight: 800;
+  font-size: clamp(2.6rem, 2rem + 2vw, 3.6rem);
+  color: transparent; -webkit-text-stroke: 1.5px var(--ember);
+  line-height: 1; font-variant-numeric: tabular-nums;
+}
+.proof .num [data-count] { display: inline-block; min-width: 1.1ch; }
+.proof small {
+  display: block; margin-top: 0.55rem; font-weight: 700; font-size: 0.75rem;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--steel);
+}
+@media (max-width: 700px) { .proof-in { grid-template-columns: 1fr 1fr; gap: 1.8rem 1rem; } }
 
 /* ---------- 4. Buttons ---------- */
 .btn {
@@ -226,10 +259,17 @@ p:last-child { margin-bottom: 0; }
 .nav a.btn-primary[aria-current="page"]::after { content: none; }
 
 .nav-toggle {
-  display: none; background: none; border: 0; padding: 0.5rem;
-  color: var(--bone);
+  display: none; background: none; border: 0; padding: 0.7rem;
+  color: var(--bone); position: relative; z-index: 61;
 }
-.nav-toggle svg { width: 30px; height: 30px; }
+.nav-toggle .bar {
+  display: block; width: 26px; height: 2px; background: currentColor;
+  margin: 6px 0; transition: transform 0.3s var(--ease), opacity 0.2s;
+}
+/* hamburger morphs to an X while the overlay is open */
+.nav-toggle[aria-expanded="true"] .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .bar:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
 @media (max-width: 1199px) {
   .nav-toggle { display: block; }
@@ -283,8 +323,10 @@ p:last-child { margin-bottom: 0; }
   /* emblems: 1.5x smaller, top-aligned, starting at the bottom of the header, centered in the bar */
   body.emblem-mockup .hero-badges {
     display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-    position: absolute; top: 3.05rem; bottom: auto; right: 0; width: 18%; /* crucifix top ≈ "Get an Estimate" button top */
-    z-index: 60; gap: clamp(1rem, 1.7vh, 1.9rem); pointer-events: none;
+    position: absolute; top: clamp(7.5rem, 6rem + 2vw, 9rem); bottom: auto; right: 0; width: 18%;
+    /* below the header band at every width — the old 3.05rem collided with
+       the "Get an Estimate" button at ~1280px viewports */
+    z-index: 59; gap: clamp(1rem, 1.7vh, 1.9rem); pointer-events: none;
   }
   body.emblem-mockup .hero-badges .hb { width: clamp(120px, 8.7vw, 160px); height: auto; display: block;
     filter: drop-shadow(0 5px 13px rgba(0,0,0,0.7)); }
@@ -312,6 +354,24 @@ p:last-child { margin-bottom: 0; }
   letter-spacing: 0.01em; margin-bottom: 0.35em;
 }
 .hero h1 .ember { color: var(--ember); }
+/* one-time "grade wipe": an ember light sweeps the word once on load,
+   then settles to the flat fill. Static ember if unsupported/reduced-motion. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero h1 .ember {
+      background: linear-gradient(100deg,
+        var(--ember) 0%, var(--ember) 38%, #FFC069 50%, var(--ember) 62%, var(--ember) 100%);
+      background-size: 250% 100%;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+      animation: gradeWipe 1.1s var(--ease) 0.35s 1 both;
+    }
+  }
+}
+@keyframes gradeWipe {
+  from { background-position: 115% 0; }
+  to   { background-position: 0% 0; }
+}
 .hero .sub {
   max-width: 34em; font-size: clamp(1.05rem, 1.8vw, 1.3rem);
   color: #C8BFAF; margin-bottom: 2rem;
@@ -400,6 +460,7 @@ p:last-child { margin-bottom: 0; }
   font-family: var(--f-disp); font-weight: 800; font-size: 2.6rem;
   color: transparent; -webkit-text-stroke: 1.5px var(--ember);
   line-height: 1; display: block; margin-bottom: 0.6rem;
+  font-variant-numeric: tabular-nums;
 }
 .std h3 { font-size: 1.25rem; }
 .std p { font-size: 0.95rem; } /* color comes from the #4C5660 paper-ink rule up top (AA) */
@@ -427,6 +488,25 @@ p:last-child { margin-bottom: 0; }
   object-fit: cover; transition: transform 0.5s var(--ease);
 }
 .work-card:hover img, .work-card:hover .ph { transform: scale(1.045); }
+/* Duotone unification: mismatched phone photos read art-directed by mapping
+   them into iron/ember at rest; hover/focus reveals the real ground.
+   Blend layers animate OPACITY only (compositor-safe, no filter deopt). */
+.work-card::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(135deg, rgba(22, 24, 29, 0.9), rgba(232, 135, 30, 0.55));
+  mix-blend-mode: color; opacity: 0.7;
+  transition: opacity 0.45s var(--ease);
+}
+.work-card::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: rgba(22, 24, 29, 0.16); mix-blend-mode: multiply;
+  transition: opacity 0.45s var(--ease);
+}
+.work-card:hover::before, .work-card:focus-within::before,
+.work-card:hover::after,  .work-card:focus-within::after { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .work-card::before, .work-card::after, .work-card img { transition: none; }
+}
 .work-card figcaption {
   position: absolute; inset: auto 0 0 0; z-index: 2;
   padding: 2.2rem 1.2rem 1rem;
@@ -598,6 +678,8 @@ body.reviews-preview .reviews-grid.is-template-set { display: grid; }
 }
 
 /* ---------- 14. Service area ---------- */
+.area-map { max-width: 760px; margin-top: 2.6rem; }
+.area-map svg { display: block; width: 100%; height: auto; }
 .area-tags { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 2rem; }
 .area-tags span {
   border: 1px solid var(--line); padding: 0.55rem 1.1rem;
@@ -698,13 +780,19 @@ textarea { min-height: 132px; resize: vertical; }
   position: absolute; top: 0; bottom: 0; left: 50%; width: 3px;
   background: var(--ember); z-index: 3; pointer-events: none;
 }
-.ba .ba-handle::after {
-  content: "◂ ▸"; position: absolute; top: 50%; left: 50%;
+.ba .ba-read { /* live "% graded" chip riding the divider */
+  position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   background: var(--ember); color: var(--iron-2);
   font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em;
   padding: 0.5rem 0.6rem; white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
+.ba .ba-cta { /* turn admiration into a request */
+  position: absolute; right: 14px; bottom: 14px; z-index: 5;
+  font-size: 0.82rem; padding: 0.6rem 1rem;
+}
+@media (max-width: 600px) { .ba .ba-cta { font-size: 0.74rem; padding: 0.5rem 0.8rem; } }
 .ba input[type="range"] {
   position: absolute; inset: 0; width: 100%; height: 100%;
   opacity: 0; cursor: ew-resize; z-index: 4; margin: 0;
@@ -769,6 +857,25 @@ textarea { min-height: 132px; resize: vertical; }
 }
 .page-hero h1 { font-size: var(--fs-h1); }
 .page-hero .lede { max-width: 52em; }
+
+/* ---------- 20b. Sticky mobile action bar (injected by main.js) ---------- */
+.mobile-cta { display: none; }
+@media (max-width: 899px) {
+  .mobile-cta {
+    position: fixed; inset: auto 0 0 0; z-index: 70;
+    display: flex; gap: 0.6rem;
+    padding: 0.65rem 0.85rem calc(0.65rem + env(safe-area-inset-bottom));
+    background: rgba(16, 18, 22, 0.96);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    border-top: 4px solid transparent; /* hazard-hatch trim edge */
+    border-image: repeating-linear-gradient(-45deg, var(--ember) 0 12px, var(--iron-2) 12px 24px) 4;
+    transition: transform 0.3s var(--ease);
+  }
+  .mobile-cta .btn { flex: 1; font-size: 0.98rem; padding: 0.8rem 0.5rem; }
+  .mobile-cta.is-hidden { transform: translateY(115%); }
+  body.has-mobile-cta .site-foot { padding-bottom: 6.5rem; }
+}
+@media (prefers-reduced-motion: reduce) { .mobile-cta { transition: none; } }
 
 /* ---------- 21. Utility ---------- */
 .center { text-align: center; }

@@ -35,7 +35,10 @@
   var DUST_N = 36;
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var isNarrow = window.matchMedia("(max-width: 820px)").matches;
+  // Narrow screens AND short coarse-pointer viewports (landscape phones) get
+  // the static frame — the heaviest animation shouldn't land on the weakest device.
+  var isNarrow = window.matchMedia("(max-width: 820px)").matches ||
+                 window.matchMedia("(max-height: 500px) and (pointer: coarse)").matches;
   var animate = !(reduceMotion || isNarrow);
 
   var W = 0, H = 0, dpr = 1;
@@ -43,6 +46,18 @@
   var field = null;       // Float32Array of noise samples, (cols+1)*(rows+1)
   var dust = [];
   var running = false, rafId = 0, last = 0, t = 0;
+
+  /* ----- "grading" state -----
+     entrance: terrain relief rises from flat on load (the survey developing).
+     flatten:  scroll progress levels the terrain toward the mean — the
+               mountain being graded. Static renders always use full relief. */
+  var entranceRaw = animate ? 0 : 1;
+  var flatten = 0;
+  function heroH() { return H || 1; }
+  window.addEventListener("scroll", function () {
+    var f = window.scrollY / heroH();
+    flatten = f < 0 ? 0 : f > 1 ? 1 : f;
+  }, { passive: true });
 
   /* ----- deterministic value noise ----- */
   function hash(ix, iy) {
@@ -99,22 +114,31 @@
     }
   }
 
-  /* ----- sample the terrain into the grid (once per frame) ----- */
+  /* ----- sample the terrain into the grid (once per frame) -----
+     amp scales relief around the mean: entrance eases 0->1 on load,
+     scroll-flatten pulls it back toward level (never fully zero, so a
+     little texture always survives the grade). */
   function sampleField(time) {
+    var e = entranceRaw >= 1 ? 1 : 1 - Math.pow(1 - entranceRaw, 3); /* ease-out cubic */
+    var amp = e * (1 - 0.85 * flatten);
     var ox = time * DRIFT_X, oy = time * DRIFT_Y;
     var i = 0;
     for (var gy = 0; gy <= rows; gy++) {
       var ny = gy * CELL * NOISE_SCALE + oy;
       for (var gx = 0; gx <= cols; gx++) {
-        field[i++] = terrain(gx * CELL * NOISE_SCALE + ox, ny);
+        field[i++] = 0.5 + (terrain(gx * CELL * NOISE_SCALE + ox, ny) - 0.5) * amp;
       }
     }
   }
 
-  /* ----- marching squares: stroke every contour at threshold `iso` ----- */
-  function lerpPt(ax, ay, av, bx, by, bv, iso) {
+  /* ----- marching squares: stroke every contour at threshold `iso` -----
+     Edge points are written into preallocated scratch arrays — the old
+     per-crossing [x,y] allocations were measurable GC churn at 60fps. */
+  var PT_T = [0, 0], PT_R = [0, 0], PT_B = [0, 0], PT_L = [0, 0];
+  function lerpInto(out, ax, ay, av, bx, by, bv, iso) {
     var d = (iso - av) / (bv - av || 1e-9);
-    return [ax + (bx - ax) * d, ay + (by - ay) * d];
+    out[0] = ax + (bx - ax) * d;
+    out[1] = ay + (by - ay) * d;
   }
   function traceContour(iso) {
     ctx.beginPath();
@@ -130,10 +154,10 @@
         if (idx === 0 || idx === 15) continue;
 
         /* interpolated edge crossings: top, right, bottom, left */
-        var T = lerpPt(x0, y0, tl, x1, y0, tr, iso);
-        var R = lerpPt(x1, y0, tr, x1, y1, br, iso);
-        var B = lerpPt(x0, y1, bl, x1, y1, br, iso);
-        var L = lerpPt(x0, y0, tl, x0, y1, bl, iso);
+        lerpInto(PT_T, x0, y0, tl, x1, y0, tr, iso); var T = PT_T;
+        lerpInto(PT_R, x1, y0, tr, x1, y1, br, iso); var R = PT_R;
+        lerpInto(PT_B, x0, y1, bl, x1, y1, br, iso); var B = PT_B;
+        lerpInto(PT_L, x0, y0, tl, x0, y1, bl, iso); var L = PT_L;
 
         /* segment table (ambiguous cases 5/10 resolved simply) */
         switch (idx) {
@@ -181,12 +205,14 @@
     }
 
     /* the grade line — one ember contour sweeping through elevations,
-       like the blade finding its level */
-    var sweep = 0.5 + 0.30 * Math.sin(time * 0.00013);
+       like the blade finding its level. As scroll flattens the terrain the
+       sweep converges on the mean and brightens: finished grade. */
+    var sweep = 0.5 + 0.30 * Math.sin(time * 0.00013) * (1 - flatten);
+    var crisp = 0.55 + 0.30 * flatten;
     ctx.strokeStyle = "rgba(232,135,30,0.10)"; /* halo pass */
     ctx.lineWidth = 5;
     traceContour(sweep);
-    ctx.strokeStyle = "rgba(232,135,30,0.55)"; /* crisp pass */
+    ctx.strokeStyle = "rgba(232,135,30," + crisp.toFixed(2) + ")"; /* crisp pass */
     ctx.lineWidth = 1.6;
     traceContour(sweep);
 
@@ -211,15 +237,20 @@
     }
   }
 
-  /* ----- animation loop with visibility gating ----- */
+  /* ----- animation loop with visibility gating -----
+     Capped at ~30fps regardless of display refresh (the drift is slow;
+     120Hz panels were paying 4x the CPU for invisible smoothness). */
+  var FRAME_MS = 33;
   function frame(now) {
     if (!running) return;
+    rafId = requestAnimationFrame(frame);
+    if (last && now - last < FRAME_MS) return;
     var dt = last ? Math.min(now - last, 50) : 16;
     last = now;
     t += dt;
+    if (entranceRaw < 1) entranceRaw = Math.min(1, entranceRaw + dt / 1200);
     stepDust(dt);
     draw(t);
-    rafId = requestAnimationFrame(frame);
   }
   function start() {
     if (running || !animate) return;
@@ -255,12 +286,29 @@
     new ResizeObserver(remeasure).observe(canvas.parentElement);
   }
   window.addEventListener("load", function () { resize(); draw(t); });
-  setTimeout(function () {
+  /* Bounded retry loop: the old one-shot 800ms check could fire while the
+     container still measured 1px (embedded webviews) and never recover.
+     Poll until the canvas has a sane width, up to ~2.5s. */
+  var bootTries = 0;
+  (function watchBoot() {
+    if (canvas.width >= 100 || ++bootTries > 8) return;
+    resize(); draw(t);
+    setTimeout(watchBoot, 300);
+  })();
+  /* Belt-and-suspenders: first real scroll re-checks too (covers the
+     "hero won't paint until a scroll nudge" failure family). */
+  window.addEventListener("scroll", function onFirstScroll() {
+    window.removeEventListener("scroll", onFirstScroll);
     if (canvas.width < 100) { resize(); draw(t); }
-  }, 800);
+  }, { passive: true });
 
   /* ----- boot: always render frame 0 synchronously ----- */
   resize();
   draw(0);
   start();
+  /* If rAF never ticks (some embedded webviews), the entrance ease would
+     leave the terrain flat forever — force full relief and paint once. */
+  setTimeout(function () {
+    if (entranceRaw < 0.5) { entranceRaw = 1; draw(t); }
+  }, 1600);
 })();
