@@ -35,11 +35,12 @@
   var DUST_N = 36;
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  // Narrow screens AND short coarse-pointer viewports (landscape phones) get
-  // the static frame — the heaviest animation shouldn't land on the weakest device.
-  var isNarrow = window.matchMedia("(max-width: 820px)").matches ||
-                 window.matchMedia("(max-height: 500px) and (pointer: coarse)").matches;
-  var animate = !(reduceMotion || isNarrow);
+  // Animation runs on ALL viewports (client call, 2026-07-16: the mobile/iPad
+  // hero should be alive too). This is affordable now because the loop is
+  // capped at ~30fps, allocates nothing per frame, and pauses offscreen —
+  // a phone-sized grid is ~1/8 the desktop cell count. Reduced-motion users
+  // still get the static frame; that gate is non-negotiable.
+  var animate = !reduceMotion;
 
   var W = 0, H = 0, dpr = 1;
   var cols = 0, rows = 0;
